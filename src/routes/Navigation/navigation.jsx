@@ -10,15 +10,19 @@ import {
   List,
   ListItem,
   ListItemText,
+  Switch,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useTheme } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 import { Outlet } from "react-router-dom";
+import { useThemeSwitcher } from "../../components/Themes/ThemeSwitcher";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 const NavBar = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const { toogleTheme } = useThemeSwitcher();
+
   const theme = useTheme();
   const isMMobile = useMediaQuery(theme.breakpoints.down("md"));
 
@@ -83,6 +87,7 @@ const NavBar = () => {
                   {item.label}
                 </Button>
               ))}
+            <Switch onChange={toogleTheme} />
           </Toolbar>
         </AppBar>
         <Drawer anchor="left" open={drawerOpen} onClose={handleDrawerToogle}>
