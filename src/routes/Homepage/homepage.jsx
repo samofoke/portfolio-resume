@@ -9,19 +9,21 @@ const HomePage = () => {
       spacing={2}
       alignItems="center"
       justifyContent="center"
-      sx={{ mt: 10, width: "100%", overflow: "hidden" }}
+      sx={{ mt: 8, width: "100%", overflow: "hidden" }}
     >
-      <Grid item xs={12} md={6} sm={10} sx={{ textAlign: "center" }}>
+      <Grid item xs={12} md={5} lg={4} sm={8} sx={{ textAlign: "center" }}>
         <Box sx={{ p: 2 }}>
           <Typography variant="h4">I’m Sabata</Typography>
           <Typography variant="h5">
-            Full Stack Engineer | DevOps Engineer
+            Software Engineer | Full Stack Engineer
           </Typography>
-          <Typography variant="body1" sx={{ mt: 2 }}>
-            I am a Software Engineer with 4 years of coding experience and 2
-            years of professional experience in Full Stack development. I also
-            work in the delivery team in the DevOps space.
-          </Typography>
+          <Box sx={{ maxWidth: 600, mx: "auto", textAlign: "justify", mt: 2 }}>
+            <Typography variant="body1">
+              I am a Software Engineer with 4 years of coding experience,
+              including 3 years of professional experience in Full Stack
+              development, supplemented by exposure to AWS DevOps tools.
+            </Typography>
+          </Box>
           <Box
             sx={{
               mt: 2,
@@ -44,8 +46,9 @@ const HomePage = () => {
       <Grid
         item
         xs={12}
-        sm={10}
-        md={6}
+        sm={8}
+        md={5}
+        lg={4}
         sx={{ display: "flex", justifyContent: "center" }}
       >
         <Box
