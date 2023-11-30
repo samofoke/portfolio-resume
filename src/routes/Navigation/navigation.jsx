@@ -10,9 +10,11 @@ import {
   List,
   ListItem,
   ListItemText,
-  Switch,
+  Stack,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import LightModeIcon from "@mui/icons-material/LightMode";
 import { useTheme } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 import { Outlet } from "react-router-dom";
@@ -21,10 +23,10 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 
 const NavBar = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const { toogleTheme } = useThemeSwitcher();
+  const { darkMode, toggleTheme } = useThemeSwitcher();
 
   const theme = useTheme();
-  const isMMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   const menuItem = [
     { label: "About Me", path: "/about" },
@@ -52,48 +54,73 @@ const NavBar = () => {
 
   return (
     <Fragment>
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static" sx={{ mb: 4 }}>
-          <Toolbar>
-            {isMMobile && (
+      <AppBar
+        position="static"
+        sx={{
+          backgroundColor: theme.palette.background.default,
+          color: theme.palette.text.primary,
+        }}
+      >
+        <Toolbar>
+          <Stack
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+            sx={{ width: "100%", position: "relative" }}
+          >
+            {isMobile && (
               <IconButton
-                size="large"
                 edge="start"
                 color="inherit"
                 aria-label="menu"
-                sx={{ mr: 2 }}
                 onClick={handleDrawerToogle}
+                sx={{ position: "absolute", left: 0 }}
               >
                 <MenuIcon />
               </IconButton>
             )}
-
-            <Typography
-              variant="h6"
-              sx={{ flexGrow: 1, textDecoration: "none", color: "inherit" }}
-              component={Link}
-              to="/"
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexGrow: 1,
+              }}
             >
-              Sabata Mofokeng
-            </Typography>
-            {!isMMobile &&
-              menuItem.map((item) => (
-                <Button
-                  key={item.label}
-                  sx={{ color: "white", display: "block", ml: 2 }}
-                  component={Link}
-                  to={item.path}
-                >
-                  {item.label}
-                </Button>
-              ))}
-            <Switch onChange={toogleTheme} />
-          </Toolbar>
-        </AppBar>
-        <Drawer anchor="left" open={drawerOpen} onClose={handleDrawerToogle}>
-          {drawer}
-        </Drawer>
-      </Box>
+              <Typography
+                variant="h6"
+                component={Link}
+                to="/"
+                sx={{ textDecoration: "none", color: "inherit" }}
+              >
+                Sabata Mofokeng
+              </Typography>
+              {!isMobile &&
+                menuItem.map((item) => (
+                  <Button
+                    key={item.label}
+                    sx={{ color: theme.palette.text.primary, ml: 2 }}
+                    component={Link}
+                    to={item.path}
+                  >
+                    {item.label}
+                  </Button>
+                ))}
+            </Box>
+
+            <IconButton
+              onClick={toggleTheme}
+              color="inherit"
+              sx={{ position: "absolute", right: 0 }}
+            >
+              {darkMode ? <LightModeIcon /> : <DarkModeIcon />}
+            </IconButton>
+          </Stack>
+        </Toolbar>
+      </AppBar>
+      <Drawer anchor="left" open={drawerOpen} onClose={handleDrawerToogle}>
+        {drawer}
+      </Drawer>
       <Outlet />
     </Fragment>
   );
