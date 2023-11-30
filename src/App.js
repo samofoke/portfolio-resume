@@ -1,5 +1,7 @@
+import React from "react";
 import { Routes, Route } from "react-router-dom";
 import ThemeSwitcher from "./components/Themes/ThemeSwitcher";
+import { CssBaseline } from "@mui/material";
 import NavBar from "./routes/Navigation/navigation";
 import HomePage from "./routes/Homepage/homepage";
 import AboutPage from "./components/About/About";
@@ -11,6 +13,7 @@ import { ContactPage } from "@mui/icons-material";
 const App = () => {
   return (
     <ThemeSwitcher>
+      <CssBaseline />
       <Routes>
         <Route path="/" element={<NavBar />}>
           <Route index element={<HomePage />} />

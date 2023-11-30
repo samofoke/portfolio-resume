@@ -23,7 +23,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 
 const NavBar = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const { darkMode, toogleTheme } = useThemeSwitcher();
+  const { darkMode, toggleTheme } = useThemeSwitcher();
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
@@ -103,7 +103,7 @@ const NavBar = () => {
             </Box>
 
             <IconButton
-              onClick={toogleTheme}
+              onClick={toggleTheme}
               color="inherit"
               sx={{ position: "absolute", right: 0 }}
             >
