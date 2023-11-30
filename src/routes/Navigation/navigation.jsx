@@ -54,7 +54,13 @@ const NavBar = () => {
 
   return (
     <Fragment>
-      <AppBar position="static">
+      <AppBar
+        position="static"
+        sx={{
+          backgroundColor: theme.palette.background.default,
+          color: theme.palette.text.primary,
+        }}
+      >
         <Toolbar>
           <Stack
             direction="row"
@@ -93,7 +99,7 @@ const NavBar = () => {
                 menuItem.map((item) => (
                   <Button
                     key={item.label}
-                    sx={{ color: "white", ml: 2 }}
+                    sx={{ color: theme.palette.text.primary, ml: 2 }}
                     component={Link}
                     to={item.path}
                   >
