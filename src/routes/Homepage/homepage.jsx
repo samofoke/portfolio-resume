@@ -17,11 +17,18 @@ const HomePage = () => {
           <Typography variant="h5">
             Software Engineer | Full Stack Engineer
           </Typography>
-          <Box sx={{ maxWidth: 600, mx: "auto", textAlign: "justify", mt: 2 }}>
+          <Box
+            sx={{
+              maxWidth: 600,
+              mx: "auto",
+              textAlign: { xs: "left", sm: "justify" },
+              mt: 2,
+            }}
+          >
             <Typography variant="body1">
               I am a Software Engineer with 4 years of coding experience,
               including 3 years of professional experience in Full Stack
-              development, supplemented by exposure to AWS DevOps tools.
+              development, and exposure to AWS DevOps tools.
             </Typography>
           </Box>
           <Box
