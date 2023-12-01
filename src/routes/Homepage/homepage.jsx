@@ -1,7 +1,6 @@
 import React from "react";
 import { Grid, Button, Box, Typography } from "@mui/material";
 import GenAI from "../../images/genAI.svg";
-import Socials from "../../components/Socials/Socials";
 
 const HomePage = () => {
   return (
