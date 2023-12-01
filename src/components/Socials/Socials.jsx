@@ -1,19 +1,28 @@
 import React from "react";
 import { Stack, IconButton, Tooltip } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import TwitterIcon from "@mui/icons-material/Twitter";
 
 const Socials = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
   return (
     <Stack
-      direction="column"
+      direction={isMobile ? "row" : "column"}
       spacing={2}
       sx={{
-        position: "fixed",
-        left: 16,
-        top: "50%",
-        transform: "translateY(-50%)",
+        position: isMobile ? "static" : "fixed",
+        left: isMobile ? "auto" : 16,
+        bottom: isMobile ? "auto" : "50%",
+        transform: isMobile ? "none" : "translateY(-50%)",
+        justifyContent: isMobile ? "center" : "flex-start",
+        width: isMobile ? "100%" : "auto",
+        mt: isMobile ? 3 : 0,
+        mb: isMobile ? 2 : 0,
       }}
     >
       <Tooltip title="LinkedIn" arrow>
