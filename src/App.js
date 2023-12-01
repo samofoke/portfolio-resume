@@ -19,7 +19,6 @@ const App = () => {
       <CssBaseline />
       <Box display="flex" flexDirection="column" minHeight="100vh">
         <NavBar />
-        <Socials />
         <Box component="main" flexGrow={1}>
           <Routes>
             <Route index element={<HomePage />} />
@@ -30,6 +29,7 @@ const App = () => {
             <Route path="contact" element={<ContactPage />} />
           </Routes>
         </Box>
+        <Socials />
         <FooterComponent />
       </Box>
     </ThemeSwitcher>
