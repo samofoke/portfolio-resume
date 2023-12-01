@@ -1,5 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
+import { Box } from "@mui/material";
 import ThemeSwitcher from "./components/Themes/ThemeSwitcher";
 import { CssBaseline } from "@mui/material";
 import NavBar from "./routes/Navigation/navigation";
@@ -8,22 +9,29 @@ import AboutPage from "./components/About/About";
 import ResumePage from "./components/Resume/Resume";
 import PortfolioPage from "./components/Portfolio/Portfolio";
 import BlogPage from "./components/Blog/Blog";
+import FooterComponent from "./components/Footer/Footer";
 import { ContactPage } from "@mui/icons-material";
+import Socials from "./components/Socials/Socials";
 
 const App = () => {
   return (
     <ThemeSwitcher>
       <CssBaseline />
-      <Routes>
-        <Route path="/" element={<NavBar />}>
-          <Route index element={<HomePage />} />
-          <Route path="about" element={<AboutPage />} />
-          <Route path="resume" element={<ResumePage />} />
-          <Route path="portfolio" element={<PortfolioPage />} />
-          <Route path="blog" element={<BlogPage />} />
-          <Route path="contact" element={<ContactPage />} />
-        </Route>
-      </Routes>
+      <Box display="flex" flexDirection="column" minHeight="100vh">
+        <NavBar />
+        <Socials />
+        <Box component="main" flexGrow={1}>
+          <Routes>
+            <Route index element={<HomePage />} />
+            <Route path="about" element={<AboutPage />} />
+            <Route path="resume" element={<ResumePage />} />
+            <Route path="portfolio" element={<PortfolioPage />} />
+            <Route path="blog" element={<BlogPage />} />
+            <Route path="contact" element={<ContactPage />} />
+          </Routes>
+        </Box>
+        <FooterComponent />
+      </Box>
     </ThemeSwitcher>
   );
 };

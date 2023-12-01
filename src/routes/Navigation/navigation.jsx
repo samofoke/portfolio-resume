@@ -56,6 +56,7 @@ const NavBar = () => {
     <Fragment>
       <AppBar
         position="static"
+        elevation={0}
         sx={{
           backgroundColor: theme.palette.background.default,
           color: theme.palette.text.primary,
