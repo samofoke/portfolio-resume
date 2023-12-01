@@ -67,7 +67,6 @@ const HomePage = () => {
           alt="Image of developer"
         />
       </Grid>
-      <Socials />
     </Grid>
   );
 };

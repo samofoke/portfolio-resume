@@ -9,7 +9,12 @@ const Socials = () => {
     <Stack
       direction="column"
       spacing={2}
-      sx={{ position: "fixed", left: 16, bottom: 16 }}
+      sx={{
+        position: "fixed",
+        left: 16,
+        top: "50%",
+        transform: "translateY(-50%)",
+      }}
     >
       <Tooltip title="LinkedIn" arrow>
         <IconButton
