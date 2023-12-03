@@ -10,7 +10,7 @@ import ResumePage from "./components/Resume/Resume";
 import PortfolioPage from "./components/Portfolio/Portfolio";
 import BlogPage from "./components/Blog/Blog";
 import FooterComponent from "./components/Footer/Footer";
-import { ContactPage } from "@mui/icons-material";
+import Contact from "./components/Contact/Contact";
 import Socials from "./components/Socials/Socials";
 
 const App = () => {
@@ -26,7 +26,7 @@ const App = () => {
             <Route path="resume" element={<ResumePage />} />
             <Route path="portfolio" element={<PortfolioPage />} />
             <Route path="blog" element={<BlogPage />} />
-            <Route path="contact" element={<ContactPage />} />
+            <Route path="contact" element={<Contact />} />
           </Routes>
         </Box>
         <Socials />
