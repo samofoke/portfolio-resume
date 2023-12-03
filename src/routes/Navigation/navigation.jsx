@@ -17,6 +17,7 @@ import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import { useTheme } from "@mui/material/styles";
 import { Link } from "react-router-dom";
+import { Link as ScrollLink } from "react-scroll";
 import { Outlet } from "react-router-dom";
 import { useThemeSwitcher } from "../../components/Themes/ThemeSwitcher";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -29,7 +30,7 @@ const NavBar = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   const menuItem = [
-    { label: "About Me", path: "/about" },
+    { label: "About", path: "/about" },
     { label: "Resume", path: "/resume" },
     { label: "Portfolio", path: "/portfolio" },
     { label: "Blog", path: "/blog" },
@@ -98,14 +99,21 @@ const NavBar = () => {
               </Typography>
               {!isMobile &&
                 menuItem.map((item) => (
-                  <Button
+                  <ScrollLink
                     key={item.label}
-                    sx={{ color: theme.palette.text.primary, ml: 2 }}
-                    component={Link}
-                    to={item.path}
+                    activeClass="active"
+                    to={item.label.toLowerCase()}
+                    smooth={true}
+                    duration={500}
+                    offset={-70}
                   >
-                    {item.label}
-                  </Button>
+                    <Button
+                      key={item.label}
+                      sx={{ color: theme.palette.text.primary, ml: 2 }}
+                    >
+                      {item.label}
+                    </Button>
+                  </ScrollLink>
                 ))}
             </Box>
 
