@@ -3,11 +3,12 @@ import { Grid, Button, Box, Typography } from "@mui/material";
 import GenAI from "../../images/genAI.svg";
 import AboutSection from "../../components/Sections/AboutSection";
 import ResumeSection from "../../components/Sections/ResumeSection";
+import Contact from "../../components/Contact/Contact";
 
 const HomePage = () => {
   return (
     <>
-      <section id="home" style={{ padding: "4rem 0" }}>
+      <section id="home" style={{ padding: "3rem 0" }}>
         <Grid
           container
           spacing={2}
@@ -80,53 +81,19 @@ const HomePage = () => {
         </Grid>
       </section>
 
-      <section id="about" style={{ padding: "4rem 0" }}>
+      <section id="about" style={{ padding: "2rem 0" }}>
         <AboutSection />
       </section>
 
-      {/* Resume Section */}
-      <section id="resume" style={sectionStyle}>
+      <section id="resume" style={{ padding: "2rem 0" }}>
         <ResumeSection />
       </section>
 
-      {/* Portfolio Section */}
-      <section id="portfolio" style={sectionStyle}>
-        <Typography variant="h2" sx={titleStyle}>
-          Portfolio
-        </Typography>
-        {/* ... your Portfolio section content ... */}
-      </section>
-
-      {/* Blog Section */}
-      <section id="blog" style={sectionStyle}>
-        <Typography variant="h2" sx={titleStyle}>
-          Blog
-        </Typography>
-        {/* ... your Blog section content ... */}
-      </section>
-
-      {/* Contact Section */}
-      <section id="contact" style={sectionStyle}>
-        <Typography variant="h2" sx={titleStyle}>
-          Contact
-        </Typography>
-        {/* ... your Contact section content ... */}
+      <section id="contact" style={{ padding: "2rem 0" }}>
+        <Contact />
       </section>
     </>
   );
 };
 
 export default HomePage;
-
-const sectionStyle = {
-  height: "100vh",
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  justifyContent: "center",
-};
-
-const titleStyle = {
-  mb: 4,
-  textAlign: "center",
-};

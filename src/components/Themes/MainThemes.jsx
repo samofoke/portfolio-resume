@@ -15,6 +15,9 @@ const lightTheme = createTheme({
       default: "rgb(253, 247, 228)",
       paper: "rgb(250, 238, 209)",
     },
+    link: {
+      main: "rgb(137, 185, 173)",
+    },
     text: {
       primary: "#000000",
       secondary: "rgba(0, 0, 0, 0.54)",
