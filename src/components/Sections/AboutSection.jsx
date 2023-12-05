@@ -44,14 +44,16 @@ const AboutSection = () => {
         <Grid item xs={12} sm={6}>
           <Paper elevation={3} sx={tileStyle}>
             <Typography variant="h6" sx={{ textAlign: "center" }}>
-              My Journey
+              My Interest
             </Typography>
             <Typography variant="body1">
-              My journey in the tech world has been driven by a relentless quest
-              for knowledge and improvement. Starting as an intern at Vodacom, I
-              quickly grasped the intricacies of software engineering. As a
-              mentor at WeThinkCode_, I not only shared knowledge but also
-              learned the value of collaboration and continuous learning.
+              My interest in computations is deeply rooted in the intricate
+              world of data structures and algorithms. To me, the elegance and
+              complexity of computations lie in how data is structured,
+              accessed, and manipulated to solve problems efficiently. My
+              fascination extends to exploring various algorithmic designs,
+              understanding their nuances, and appreciating their potential to
+              transform raw data into meaningful insights.
             </Typography>
           </Paper>
         </Grid>

@@ -1,7 +1,9 @@
 import React from "react";
 import { Grid, Button, Box, Typography } from "@mui/material";
 import GenAI from "../../images/genAI.svg";
+import { Link } from "react-router-dom";
 import AboutSection from "../../components/Sections/AboutSection";
+import DialogComponent from "../../components/Dialog/DialogComponent";
 import ResumeSection from "../../components/Sections/ResumeSection";
 import Contact from "../../components/Contact/Contact";
 
@@ -42,13 +44,18 @@ const HomePage = () => {
                   display: "flex",
                   flexDirection: { xs: "column", sm: "row" },
                   justifyContent: "center",
+                  alignItems: "center",
+                  width: "100%",
                   gap: 5,
                 }}
               >
-                <Button variant="contained" color="primary">
-                  Download CV
-                </Button>
-                <Button variant="contained" color="primary">
+                <DialogComponent buttonText="Download CV" />
+                <Button
+                  variant="contained"
+                  color="primary"
+                  component={Link}
+                  to="/contact"
+                >
                   Contact
                 </Button>
               </Box>
