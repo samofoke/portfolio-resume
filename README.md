@@ -8,14 +8,6 @@
 
 - **Version:** 0.1.0
 
-## Features
-
-- **Customizable Home Page:** Introduces the user with a personal touch, including a professional title and a brief introduction.
-- **Resume Display:** A dedicated section for showcasing a detailed resume.
-- **Portfolio Showcase:** An interactive area to present various portfolio items or projects.
-- **Blog Functionality:** A segment for sharing professional insights, stories, or experiences.
-- **Contact Section:** A user-friendly space for viewers to make contact.
-
 ## Technologies Used
 
 - React & React-DOM
@@ -46,3 +38,13 @@
 
     ```bash
     npm start
+
+
+## Features
+
+- **Customizable Home Page:** Introduces the user with a personal touch, including a professional title and a brief introduction.
+- **Resume Display:** A dedicated section for showcasing a detailed resume.
+- **Portfolio Showcase:** An interactive area to present various portfolio items or projects.
+- **Blog Functionality:** A segment for sharing professional insights, stories, or experiences.
+- **Contact Section:** A user-friendly space for viewers to make contact.
+
