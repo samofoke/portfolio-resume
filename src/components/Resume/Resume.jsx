@@ -3,13 +3,15 @@ import {
   Box,
   Typography,
   List,
+  Link,
   ListItem,
   ListItemText,
   ListItemIcon,
   Grid,
 } from "@mui/material";
+import { lightTheme } from "../Themes/MainThemes";
 import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
-// import SchoolIcon from "@mui/icons-material/School";
+import SchoolIcon from "@mui/icons-material/School";
 
 const ResumePage = () => {
   return (
@@ -40,6 +42,30 @@ const ResumePage = () => {
           },
         }}
       >
+        <Grid item xs={12}>
+          <Box sx={{ mb: { xs: 2, md: 4 }, textAlign: "center" }}>
+            <Typography variant="h6">Professional Summary</Typography>
+            <Typography
+              variant="body1"
+              sx={{
+                textAlign: { xs: "left", md: "left" },
+                fontSize: { xs: "0.9rem", sm: "1rem" },
+                hyphens: "auto",
+                padding: { xs: "0 1rem", md: "0" },
+              }}
+            >
+              I am a Software Engineer with 3 years of experience in designing
+              and implementing end-to-end web solutions. I have worked with a
+              variety of front-end and back-end technologies, including React,
+              Angular, Next.js, Node.js, and Express.js. Additionally, I have
+              experience with several databases, such as Oracle, MongoDB, and
+              PostgreSQL. I have hands-on experience with DevOps practices such
+              as continuous integration and delivery and have worked with tools
+              like Docker and Kubernetes to streamline deployment processes.
+            </Typography>
+          </Box>
+        </Grid>
+
         <Grid item xs={12} md={4}>
           <Box sx={{ mb: 4 }}>
             <Typography variant="h6">Contact Me At</Typography>
@@ -48,10 +74,25 @@ const ResumePage = () => {
               sabataernestmofokeng@gmail.com
             </Typography>
             <Typography variant="body1">
-              <a href="https://www.linkedin.com/in/sabata-mofokeng-b6a267193/">
+              <Link
+                href="https://www.linkedin.com/in/sabata-mofokeng-b6a267193/"
+                underline="hover"
+                target="_blank"
+                rel="noopener"
+                style={{ color: lightTheme.palette.link.main }}
+              >
                 LinkedIn
-              </a>{" "}
-              | <a href="https://github.com/samofoke">GitHub</a>
+              </Link>{" "}
+              |{" "}
+              <Link
+                href="https://github.com/samofoke"
+                underline="hover"
+                target="_blank"
+                rel="noopener"
+                style={{ color: lightTheme.palette.link.main }}
+              >
+                GitHub
+              </Link>
             </Typography>
           </Box>
 
@@ -63,6 +104,9 @@ const ResumePage = () => {
               </ListItem>
               <ListItem>
                 <ListItemText secondary="JavaScript" />
+              </ListItem>
+              <ListItem>
+                <ListItemText secondary="Typescript" />
               </ListItem>
               <ListItem>
                 <ListItemText secondary="Node.js" />
@@ -80,7 +124,7 @@ const ResumePage = () => {
                 <ListItemText secondary="SourceTree/Git" />
               </ListItem>
               <ListItem>
-                <ListItemText secondary="Typescript" />
+                <ListItemText secondary="AWS" />
               </ListItem>
             </List>
           </Box>
@@ -91,28 +135,28 @@ const ResumePage = () => {
               <ListItem>
                 <ListItemText
                   primary="Pontsho Mogwere"
-                  secondary="Software Engineer | Vodacom | +27792362097 | pontshomogwere@gmail.com"
+                  secondary="Software Engineer | Vodacom | pontshomogwere@gmail.com"
                 />
               </ListItem>
 
               <ListItem>
                 <ListItemText
                   primary="Zandile Langa"
-                  secondary="Software Architecture DGT | Vodacom | +27727414947 | zandile.langa@vodacom.co.za"
+                  secondary="Software Architecture DGT | Vodacom | zandile.langa@vodacom.co.za"
                 />
               </ListItem>
 
               <ListItem>
                 <ListItemText
                   primary="Given Makhobela"
-                  secondary="Quality Assurance Engineer | Vodacom | +27713177808 | givenm@bbd.co.za"
+                  secondary="Quality Assurance Engineer | Vodacom | givenm@bbd.co.za"
                 />
               </ListItem>
 
               <ListItem>
                 <ListItemText
                   primary="Morapedi Obakeng Masima"
-                  secondary="Junior Mobile App Dev | Momentum | +27609237079 | morapedimasima@gmail.com"
+                  secondary="Junior Mobile App Dev | Momentum | morapedimasima@gmail.com"
                 />
               </ListItem>
             </List>
@@ -120,21 +164,6 @@ const ResumePage = () => {
         </Grid>
 
         <Grid item xs={12} md={8}>
-          <Box sx={{ mb: 4 }}>
-            <Typography variant="h6">Professional Summary</Typography>
-            <Typography variant="body1">
-              I am a Software Engineer with 3 years of experience in designing
-              and implementing end-to-end web solutions. I have worked with a
-              variety of front-end and back-end technologies, including
-              React/Angular/Next.js, Node.js, and Express.js. Additionally, I
-              have experience with several databases, such as Oracle, MongoDB,
-              and PostgreSQL. I have hands-on experience with DevOps practices
-              such as continuous integration and delivery and have worked with
-              tools like Docker and Kubernetes to streamline deployment
-              processes.
-            </Typography>
-          </Box>
-
           <Box sx={{ mb: 4 }}>
             <Typography variant="h6">Work Experience</Typography>
             <List>
@@ -148,28 +177,40 @@ const ResumePage = () => {
                 />
               </ListItem>
 
-              <ListItem>
+              <ListItem alignItems="flex-start">
+                <ListItemIcon sx={{ marginTop: "8px" }}>
+                  <WorkOutlineIcon />
+                </ListItemIcon>
                 <ListItemText
                   primary="Software Engineer, Vodacom"
                   secondary="March 2021 - Feb 2023: I contributed to migrating the Angular application source code to React in JavaScript. This involved leveraging my skills to ensure a smooth transition between the two frameworks. I also maintained the production code for the Angular front-end application, utilizing material UI/styled-components to create user-friendly interfaces. Additionally, I worked on the Back-end in a microservice architecture, where I resolved bugs, updated outdated business logic, and versioned Node. I took ownership of updating DockerFiles and managing the Kubernetes cluster on AWS, including restarting and starting pods. I collaborated closely with my team members to deliver high-quality work."
                 />
               </ListItem>
 
-              <ListItem>
+              <ListItem alignItems="flex-start">
+                <ListItemIcon sx={{ marginTop: "8px" }}>
+                  <WorkOutlineIcon />
+                </ListItemIcon>
                 <ListItemText
                   primary="Technical Mentor, WeThinkCode_"
                   secondary="August 2020 - February 2021: I was assisting the students in understanding the material by going through hackerrank questions, doing some sample code concepts, and also sharing my experience of my Dev journey and how I survived the program."
                 />
               </ListItem>
 
-              <ListItem>
+              <ListItem alignItems="flex-start">
+                <ListItemIcon sx={{ marginTop: "8px" }}>
+                  <WorkOutlineIcon />
+                </ListItemIcon>
                 <ListItemText
                   primary="Software Engineer Intern, Vodacom"
                   secondary="February 2020 - June 2020: I worked in an amazing team, building a tool using React.js, Express.js, MongoDB, and Node.js from the UI frontend to the microservice backend integrated alongside Angular.js."
                 />
               </ListItem>
 
-              <ListItem>
+              <ListItem alignItems="flex-start">
+                <ListItemIcon sx={{ marginTop: "8px" }}>
+                  <WorkOutlineIcon />
+                </ListItemIcon>
                 <ListItemText
                   primary="Volunteer, WeThinkCode_"
                   secondary="October 2019 - February 2020: Assisted with setting up computers for candidates, invigilating, and helping with technical issues."
@@ -181,46 +222,40 @@ const ResumePage = () => {
           <Box sx={{ mb: 4 }}>
             <Typography variant="h6">Education</Typography>
             <List>
-              <ListItem>
+              <ListItem alignItems="flex-start">
+                <ListItemIcon sx={{ marginTop: "8px" }}>
+                  <SchoolIcon />
+                </ListItemIcon>
                 <ListItemText
                   primary="WeThinkCode_"
                   secondary="Computer Software Engineering · (2019 - 2021)"
                 />
               </ListItem>
 
-              <ListItem>
+              <ListItem alignItems="flex-start">
+                <ListItemIcon sx={{ marginTop: "8px" }}>
+                  <SchoolIcon />
+                </ListItemIcon>
                 <ListItemText
                   primary="University of South Africa/Universiteit van Suid-Afrika"
                   secondary="Bachelor's degree, Computing · (2019 - 2025, in progress)"
                 />
               </ListItem>
 
-              <ListItem>
+              <ListItem alignItems="flex-start">
+                <ListItemIcon sx={{ marginTop: "8px" }}>
+                  <SchoolIcon />
+                </ListItemIcon>
                 <ListItemText
                   primary="ATTI Advanced Technology Training Institute"
                   secondary="Certificate, System Administrator · (2017 - 2018)"
                 />
               </ListItem>
 
-              <ListItem>
-                <ListItemText secondary="Additional Certifications from ATTI" />
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="PC Technician, Network Technician" />
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="Concepts of Information Technology" />
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="Installation, Storage and Compute with Windows Server 2016" />
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="Networking with Windows Server 2016" />
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="Identify with Windows Server 2016" />
-              </ListItem>
-              <ListItem>
+              <ListItem alignItems="flex-start">
+                <ListItemIcon sx={{ marginTop: "8px" }}>
+                  <SchoolIcon />
+                </ListItemIcon>
                 <ListItemText
                   primary="Lenyora La Thuto Secondary High School"
                   secondary="Matric · (2007 - 2010)"
