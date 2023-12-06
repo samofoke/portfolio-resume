@@ -1,13 +1,33 @@
-import React from "react";
-import { Grid, Button, Box, Typography } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import { Grid, Button, Box, Typography, IconButton } from "@mui/material";
 import GenAI from "../../images/genAI.svg";
 import { Link } from "react-router-dom";
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import AboutSection from "../../components/Sections/AboutSection";
 import DialogComponent from "../../components/Dialog/DialogComponent";
 import ResumeSection from "../../components/Sections/ResumeSection";
 import Contact from "../../components/Contact/Contact";
 
 const HomePage = () => {
+  const [showButton, setShowButton] = useState(false);
+
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 300) {
+        setShowButton(true);
+      } else {
+        setShowButton(false);
+      }
+    });
+  }, []);
+
+  const scrollButton = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <>
       <section id="home" style={{ padding: "3rem 0" }}>
@@ -107,6 +127,21 @@ const HomePage = () => {
       <section id="contact" style={{ padding: "2rem 0" }}>
         <Contact />
       </section>
+
+      {showButton && (
+        <IconButton
+          sx={{
+            position: "fixed",
+            right: 20,
+            bottom: 20,
+            zIndex: 1000,
+          }}
+          onClick={scrollButton}
+          color="secondary"
+        >
+          <ArrowUpwardIcon />
+        </IconButton>
+      )}
     </>
   );
 };
