@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Grid, Button, Box, Typography, IconButton } from "@mui/material";
-import GenAI from "../../images/genAI.svg";
+import GenAI from "../../images/genAI2.svg";
 import { Link } from "react-router-dom";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import AboutSection from "../../components/Sections/AboutSection";
