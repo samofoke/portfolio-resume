@@ -32,7 +32,15 @@ const HomePage = () => {
                   mt: 2,
                 }}
               >
-                <Typography variant="body1">
+                <Typography
+                  variant="body1"
+                  sx={{
+                    textAlign: { xs: "left", md: "left" },
+                    fontSize: { xs: "0.9rem", sm: "1rem" },
+                    hyphens: "auto",
+                    padding: { xs: "0 1rem", md: "0" },
+                  }}
+                >
                   I am a Software Engineer with 4 years of coding experience,
                   including 3 years of professional experience in Full Stack
                   development, and exposure to AWS DevOps tools.

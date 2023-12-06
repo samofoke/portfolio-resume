@@ -8,11 +8,17 @@ import {
   ListItemText,
   ListItemIcon,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
 import SchoolIcon from "@mui/icons-material/School";
 
 const ResumeSection = () => {
+  const navigate = useNavigate();
+
+  const handleNavigate = () => {
+    navigate("/resume");
+  };
+
   return (
     <Box sx={{ p: 4, maxWidth: 800, mx: "auto" }}>
       <Typography variant="h4" sx={{ textAlign: "center", mb: 3 }}>
@@ -103,12 +109,7 @@ const ResumeSection = () => {
       </Box>
 
       <Box sx={{ textAlign: "center", mt: 4 }}>
-        <Button
-          variant="contained"
-          color="primary"
-          component={Link}
-          to="/resume"
-        >
+        <Button variant="contained" color="primary" onClick={handleNavigate}>
           More Info
         </Button>
       </Box>
