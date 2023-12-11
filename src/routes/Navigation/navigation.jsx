@@ -3,7 +3,6 @@ import {
   Box,
   AppBar,
   Typography,
-  Button,
   IconButton,
   Toolbar,
   Drawer,
@@ -16,15 +15,16 @@ import MenuIcon from "@mui/icons-material/Menu";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import { useTheme } from "@mui/material/styles";
-import { Link } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import { Link as ScrollLink } from "react-scroll";
-import { Outlet } from "react-router-dom";
+import CustomButton from "../../components/button/HoverButton";
 import { useThemeSwitcher } from "../../components/Themes/ThemeSwitcher";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 const NavBar = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const { darkMode, toggleTheme } = useThemeSwitcher();
+  const location = useLocation();
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
@@ -39,6 +39,33 @@ const NavBar = () => {
 
   const handleDrawerToogle = () => {
     setDrawerOpen(!drawerOpen);
+  };
+
+  const renderLinks = (item) => {
+    if (location.pathname === "/") {
+      return (
+        <ScrollLink
+          key={item.label}
+          activeClass="active"
+          to={item.label.toLowerCase()}
+          smooth={true}
+          duration={500}
+          offset={-70}
+        >
+          <CustomButton sx={{ color: theme.palette.text.primary, ml: 2 }}>
+            {item.label}
+          </CustomButton>
+        </ScrollLink>
+      );
+    } else {
+      return (
+        <Link to={item.path} key={item.label}>
+          <CustomButton sx={{ color: theme.palette.text.primary, ml: 2 }}>
+            {item.label}
+          </CustomButton>
+        </Link>
+      );
+    }
   };
 
   const drawer = (
@@ -97,24 +124,7 @@ const NavBar = () => {
               >
                 Sabata Mofokeng
               </Typography>
-              {!isMobile &&
-                menuItem.map((item) => (
-                  <ScrollLink
-                    key={item.label}
-                    activeClass="active"
-                    to={item.label.toLowerCase()}
-                    smooth={true}
-                    duration={500}
-                    offset={-70}
-                  >
-                    <Button
-                      key={item.label}
-                      sx={{ color: theme.palette.text.primary, ml: 2 }}
-                    >
-                      {item.label}
-                    </Button>
-                  </ScrollLink>
-                ))}
+              {!isMobile && menuItem.map((item, index) => renderLinks(item))}
             </Box>
 
             <IconButton
