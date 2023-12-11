@@ -18,6 +18,7 @@ import LightModeIcon from "@mui/icons-material/LightMode";
 import { useTheme } from "@mui/material/styles";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { Link as ScrollLink } from "react-scroll";
+import CustomButton from "../../components/button/HoverButton";
 import { useThemeSwitcher } from "../../components/Themes/ThemeSwitcher";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
@@ -52,17 +53,17 @@ const NavBar = () => {
           duration={500}
           offset={-70}
         >
-          <Button sx={{ color: theme.palette.text.primary, ml: 2 }}>
+          <CustomButton sx={{ color: theme.palette.text.primary, ml: 2 }}>
             {item.label}
-          </Button>
+          </CustomButton>
         </ScrollLink>
       );
     } else {
       return (
         <Link to={item.path} key={item.label}>
-          <Button sx={{ color: theme.palette.text.primary, ml: 2 }}>
+          <CustomButton sx={{ color: theme.palette.text.primary, ml: 2 }}>
             {item.label}
-          </Button>
+          </CustomButton>
         </Link>
       );
     }
