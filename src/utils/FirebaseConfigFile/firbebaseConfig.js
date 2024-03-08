@@ -1,11 +1,11 @@
 import { initializeApp } from "firebase/app";
 import {
   getAuth,
-  signInWithRedirect,
+  //   signInWithRedirect,
   signInWithPopup,
   GoogleAuthProvider,
 } from "firebase/auth";
-import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
+// import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -17,6 +17,8 @@ const firebaseConfig = {
 };
 
 const fireBasesApp = initializeApp(firebaseConfig);
+
+console.log("stupid:", fireBasesApp);
 
 const provider = new GoogleAuthProvider();
 
