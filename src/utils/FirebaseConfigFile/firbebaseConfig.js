@@ -1,11 +1,6 @@
 import { initializeApp } from "firebase/app";
-import {
-  getAuth,
-  //   signInWithRedirect,
-  signInWithPopup,
-  GoogleAuthProvider,
-} from "firebase/auth";
-// import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -16,16 +11,51 @@ const firebaseConfig = {
   appId: process.env.REACT_APP_APP_ID,
 };
 
-const fireBasesApp = initializeApp(firebaseConfig);
-
-console.log("stupid:", fireBasesApp);
-
-const provider = new GoogleAuthProvider();
-
-provider.setCustomParameters({
-  prompt: "select_account",
-});
+const fireBaseApp = initializeApp(firebaseConfig);
 
 export const auth = getAuth();
 
-export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
+export const db = getFirestore();
+
+const DEBUG = false; // Set to false in production
+
+function customLogger(message, data) {
+  if (DEBUG) {
+    console.log(message, data);
+  }
+}
+
+customLogger("initialize: ", fireBaseApp);
+
+export const createUser = async (email, password) => {
+  if (!email || !password) return;
+
+  return await createUserWithEmailAndPassword(auth, email, password);
+};
+
+export const createUserAuthDocument = async (
+  userAuth,
+  moreUserInformation = {}
+) => {
+  if (!userAuth) return;
+
+  const userDocumentRef = doc(db, "users", userAuth.uid);
+
+  const userSnapShot = await getDoc(userDocumentRef);
+
+  if (!userSnapShot.exists()) {
+    const { displayName, email } = userAuth;
+    const createdAt = new Date();
+
+    try {
+      await setDoc(userDocumentRef, {
+        displayName,
+        email,
+        createdAt,
+        ...moreUserInformation,
+      });
+    } catch (error) {
+      console.log("Error creating the User: ", error.message);
+    }
+  }
+};

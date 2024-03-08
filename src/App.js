@@ -12,6 +12,7 @@ import BlogPage from "./components/Blog/Blog";
 import FooterComponent from "./components/Footer/Footer";
 import Contact from "./components/Contact/Contact";
 import Socials from "./components/Socials/Socials";
+import SignUpForm from "./components/SigninAndSignup/SignUp/SignUpFrom";
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
             <Route path="portfolio" element={<PortfolioPage />} />
             <Route path="blog" element={<BlogPage />} />
             <Route path="contact" element={<Contact />} />
+            <Route path="signup" element={<SignUpForm />} />
           </Routes>
         </Box>
         <Socials />
