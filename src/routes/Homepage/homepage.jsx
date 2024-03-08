@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Grid, Button, Box, Typography, IconButton } from "@mui/material";
-import GenAI from "../../images/genAI2.svg";
+import GenAI from "../../images/hacker.png";
 import { Link } from "react-router-dom";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import AboutSection from "../../components/Sections/AboutSection";
 import DialogComponent from "../../components/Dialog/DialogComponent";
 import ResumeSection from "../../components/Sections/ResumeSection";
 import Contact from "../../components/Contact/Contact";
+import { HomePageInfo } from "../../assets/bioInfo";
 
 const HomePage = () => {
   const [showButton, setShowButton] = useState(false);
@@ -40,10 +41,8 @@ const HomePage = () => {
         >
           <Grid item xs={12} md={5} lg={4} sm={8} sx={{ textAlign: "center" }}>
             <Box sx={{ p: 2 }}>
-              <Typography variant="h4">I’m Sabata</Typography>
-              <Typography variant="h5">
-                Software Engineer | Full Stack Engineer
-              </Typography>
+              <Typography variant="h4">{HomePageInfo.myTitle}</Typography>
+              <Typography variant="h5">{HomePageInfo.myProfession}</Typography>
               <Box
                 sx={{
                   maxWidth: 600,
@@ -61,9 +60,7 @@ const HomePage = () => {
                     padding: { xs: "0 1rem", md: "0" },
                   }}
                 >
-                  I am a Software Engineer with 4 years of coding experience,
-                  including 3 years of professional experience in Full Stack
-                  development, and exposure to AWS DevOps tools.
+                  {HomePageInfo.myWorkJourney}
                 </Typography>
               </Box>
               <Box
