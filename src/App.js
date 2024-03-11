@@ -12,27 +12,32 @@ import BlogPage from "./components/Blog/Blog";
 import FooterComponent from "./components/Footer/Footer";
 import Contact from "./components/Contact/Contact";
 import Socials from "./components/Socials/Socials";
+import SignUpSignIn from "./pages/SignupAndSigninFrom/SignUpSignin";
+import { UserProvider } from "./UserContext/UserContext";
 
 const App = () => {
   return (
-    <ThemeSwitcher>
-      <CssBaseline />
-      <Box display="flex" flexDirection="column" minHeight="100vh">
-        <NavBar />
-        <Box component="main" flexGrow={1}>
-          <Routes>
-            <Route index element={<HomePage />} />
-            <Route path="about" element={<AboutPage />} />
-            <Route path="resume" element={<ResumePage />} />
-            <Route path="portfolio" element={<PortfolioPage />} />
-            <Route path="blog" element={<BlogPage />} />
-            <Route path="contact" element={<Contact />} />
-          </Routes>
+    <UserProvider>
+      <ThemeSwitcher>
+        <CssBaseline />
+        <Box display="flex" flexDirection="column" minHeight="100vh">
+          <NavBar />
+          <Box component="main" flexGrow={1}>
+            <Routes>
+              <Route index element={<HomePage />} />
+              <Route path="about" element={<AboutPage />} />
+              <Route path="resume" element={<ResumePage />} />
+              <Route path="portfolio" element={<PortfolioPage />} />
+              <Route path="blog" element={<BlogPage />} />
+              <Route path="contact" element={<Contact />} />
+              <Route path="signup" element={<SignUpSignIn />} />
+            </Routes>
+          </Box>
+          <Socials />
+          <FooterComponent />
         </Box>
-        <Socials />
-        <FooterComponent />
-      </Box>
-    </ThemeSwitcher>
+      </ThemeSwitcher>
+    </UserProvider>
   );
 };
 
