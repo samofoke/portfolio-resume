@@ -44,7 +44,7 @@ const SignUpForm = () => {
     setFormFields({ ...formFields, [name]: value });
   };
 
-  console.log(formFields);
+  // console.log(formFields);
 
   return (
     <div>

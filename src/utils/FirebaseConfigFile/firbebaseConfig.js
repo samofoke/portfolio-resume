@@ -61,6 +61,7 @@ export const createUserAuthDocument = async (
       await setDoc(userDocumentRef, {
         displayName,
         email,
+        role: "User",
         createdAt,
         ...moreUserInformation,
       });
