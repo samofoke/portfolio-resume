@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { signInUser } from "../../../utils/FirebaseConfigFile/firbebaseConfig";
 
 const defaultFormFields = {
@@ -10,13 +11,18 @@ const SignIn = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
 
+  const navigate = useNavigate();
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       const response = await signInUser(email, password);
       console.log("user: ", response);
       resetFormFields();
-    } catch (error) {}
+      navigate("/");
+    } catch (error) {
+      console.log("Error Submitting user details: ", error);
+    }
   };
 
   const resetFormFields = () => {

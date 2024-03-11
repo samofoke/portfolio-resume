@@ -27,9 +27,7 @@ export const UserProvider = ({ children }) => {
         });
 
         if (userSnapShot.exists()) {
-          console.log("snap: ", userSnapShot.id);
           const userData = userSnapShot.data();
-          console.log("user data: ", userData);
           setCurrentUser({
             uid: userSnapShot.id,
             ...userData,
@@ -44,7 +42,7 @@ export const UserProvider = ({ children }) => {
       }
       setLoading(false);
     });
-    // console.log("sub user: ", unsubscribe);
+
     return unsubscribe;
   }, []);
 
