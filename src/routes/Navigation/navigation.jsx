@@ -20,6 +20,7 @@ import { Link as ScrollLink } from "react-scroll";
 import CustomButton from "../../components/button/HoverButton";
 import { useThemeSwitcher } from "../../components/Themes/ThemeSwitcher";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { motion } from "framer-motion";
 import UserIcon from "../../components/UserProfile/UserIcon/UserIconProfile";
 
 const NavBar = () => {
@@ -38,11 +39,21 @@ const NavBar = () => {
     { label: "Contact", path: "/contact" },
   ];
 
+  const itemVariants = {
+    hidden: { opacity: 0, y: -20 },
+    visible: { opacity: 1, y: 0 },
+  };
+
+  const iconVariants = {
+    hidden: { scale: 0 },
+    visible: { scale: 1 },
+  };
+
   const handleDrawerToogle = () => {
     setDrawerOpen(!drawerOpen);
   };
 
-  const renderLinks = (item) => {
+  const renderLinks = (item, index) => {
     if (location.pathname === "/") {
       return (
         <ScrollLink
@@ -60,7 +71,7 @@ const NavBar = () => {
       );
     } else {
       return (
-        <Link to={item.path} key={item.label}>
+        <Link to={item.path}>
           <CustomButton sx={{ color: theme.palette.text.primary, ml: 2 }}>
             {item.label}
           </CustomButton>
@@ -117,22 +128,37 @@ const NavBar = () => {
                 flexGrow: 1,
               }}
             >
-              <Typography
-                variant="h6"
-                component={Link}
-                to="/"
-                sx={{ textDecoration: "none", color: "inherit" }}
+              <motion.div
+                variants={itemVariants}
+                initial="hidden"
+                animate="visible"
+                transition={{ duration: 0.5 }}
               >
-                Sabata Mofokeng
-              </Typography>
+                <Typography
+                  variant="h6"
+                  component={Link}
+                  to="/"
+                  sx={{ textDecoration: "none", color: "inherit" }}
+                >
+                  Sabata Mofokeng
+                </Typography>
+              </motion.div>
               {!isMobile && menuItem.map((item, index) => renderLinks(item))}
             </Box>
 
             {isMobile === false ? (
               <Box sx={{ display: "flex", alignItems: "center", mr: "60px" }}>
-                <UserIcon />
+                <motion.div
+                  variants={iconVariants}
+                  initial="hidden"
+                  animate="visible"
+                  transition={{ duration: 0.3 }}
+                >
+                  <UserIcon />
+                </motion.div>
               </Box>
             ) : null}
+
             <IconButton
               onClick={toggleTheme}
               color="inherit"
