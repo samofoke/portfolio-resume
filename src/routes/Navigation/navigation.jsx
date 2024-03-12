@@ -20,6 +20,7 @@ import { Link as ScrollLink } from "react-scroll";
 import CustomButton from "../../components/button/HoverButton";
 import { useThemeSwitcher } from "../../components/Themes/ThemeSwitcher";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import UserIcon from "../../components/UserProfile/UserIcon/UserIconProfile";
 
 const NavBar = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -127,6 +128,11 @@ const NavBar = () => {
               {!isMobile && menuItem.map((item, index) => renderLinks(item))}
             </Box>
 
+            {isMobile === false ? (
+              <Box sx={{ display: "flex", alignItems: "center", mr: "60px" }}>
+                <UserIcon />
+              </Box>
+            ) : null}
             <IconButton
               onClick={toggleTheme}
               color="inherit"
