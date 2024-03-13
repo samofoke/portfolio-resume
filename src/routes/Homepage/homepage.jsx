@@ -15,12 +15,18 @@ import DialogComponent from "../../components/Dialog/DialogComponent";
 import ResumeSection from "../../components/Sections/ResumeSection";
 import Contact from "../../components/Contact/Contact";
 import { HomePageInfo } from "../../assets/bioInfo";
+import { motion } from "framer-motion";
 import { getImagesFromUrl } from "../../utils/FirebaseConfigFile/firbebaseConfig";
 
 const HomePage = () => {
   const [showButton, setShowButton] = useState(false);
   const [imageUrl, setImageUrl] = useState(null);
   const [isLoading, setLoading] = useState(true);
+
+  const sectionVariants = {
+    hidden: { y: 50, opacity: 0 },
+    visible: { y: 0, opacity: 1, transition: { duration: 0.7 } },
+  };
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -69,98 +75,110 @@ const HomePage = () => {
       ) : (
         <>
           <section id="home" style={{ padding: "3rem 0" }}>
-            <Grid
-              container
-              spacing={2}
-              alignItems="center"
-              justifyContent="center"
-              sx={{ mt: 8, width: "100%", overflow: "hidden" }}
+            <motion.div
+              variants={sectionVariants}
+              initial="hidden"
+              animate="visible"
             >
               <Grid
-                item
-                xs={12}
-                md={5}
-                lg={4}
-                sm={8}
-                sx={{ textAlign: "center" }}
+                container
+                spacing={2}
+                alignItems="center"
+                justifyContent="center"
+                sx={{ mt: 8, width: "100%", overflow: "hidden" }}
               >
-                <Box sx={{ p: 2 }}>
-                  <Typography variant="h4">{HomePageInfo.myTitle}</Typography>
-                  <Typography variant="h5">
-                    {HomePageInfo.myProfession}
-                  </Typography>
-                  <Box
-                    sx={{
-                      maxWidth: 600,
-                      mx: "auto",
-                      textAlign: { xs: "left", sm: "justify" },
-                      mt: 2,
-                    }}
-                  >
-                    <Typography
-                      variant="body1"
+                <Grid
+                  item
+                  xs={12}
+                  md={5}
+                  lg={4}
+                  sm={8}
+                  sx={{ textAlign: "center" }}
+                >
+                  <Box sx={{ p: 2 }}>
+                    <Typography variant="h4">{HomePageInfo.myTitle}</Typography>
+                    <Typography variant="h5">
+                      {HomePageInfo.myProfession}
+                    </Typography>
+                    <Box
                       sx={{
-                        textAlign: { xs: "left", md: "left" },
-                        fontSize: { xs: "0.9rem", sm: "1rem" },
-                        hyphens: "auto",
-                        padding: { xs: "0 1rem", md: "0" },
+                        maxWidth: 600,
+                        mx: "auto",
+                        textAlign: { xs: "left", sm: "justify" },
+                        mt: 2,
                       }}
                     >
-                      {HomePageInfo.myWorkJourney}
-                    </Typography>
+                      <Typography
+                        variant="body1"
+                        sx={{
+                          textAlign: { xs: "left", md: "left" },
+                          fontSize: { xs: "0.9rem", sm: "1rem" },
+                          hyphens: "auto",
+                          padding: { xs: "0 1rem", md: "0" },
+                        }}
+                      >
+                        {HomePageInfo.myWorkJourney}
+                      </Typography>
+                    </Box>
+                    <Box
+                      sx={{
+                        mt: 2,
+                        display: "flex",
+                        flexDirection: { xs: "column", sm: "row" },
+                        justifyContent: "center",
+                        alignItems: "center",
+                        width: "100%",
+                        gap: 5,
+                      }}
+                    >
+                      <DialogComponent buttonText="Download CV" />
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        component={Link}
+                        to="/contact"
+                      >
+                        Contact
+                      </Button>
+                    </Box>
                   </Box>
+                </Grid>
+
+                <Grid
+                  item
+                  xs={12}
+                  sm={8}
+                  md={5}
+                  lg={4}
+                  sx={{ display: "flex", justifyContent: "center" }}
+                >
                   <Box
                     sx={{
-                      mt: 2,
-                      display: "flex",
-                      flexDirection: { xs: "column", sm: "row" },
-                      justifyContent: "center",
-                      alignItems: "center",
-                      width: "100%",
-                      gap: 5,
+                      width: { xs: "32vh", md: "38vh" },
+                      height: { xs: "32vh", md: "38vh" },
+                      borderRadius: "50%",
+                      padding: "0.75rem",
+                      marginBottom: { xs: "1rem", sm: 0 },
+                      marginRight: { xs: 0, md: "2rem" },
+                      boxShadow: 3,
                     }}
-                  >
-                    <DialogComponent buttonText="Download CV" />
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      component={Link}
-                      to="/contact"
-                    >
-                      Contact
-                    </Button>
-                  </Box>
-                </Box>
+                    component="img"
+                    src={imageUrl || GenAI}
+                    alt="Image of developer"
+                  />
+                </Grid>
               </Grid>
-
-              <Grid
-                item
-                xs={12}
-                sm={8}
-                md={5}
-                lg={4}
-                sx={{ display: "flex", justifyContent: "center" }}
-              >
-                <Box
-                  sx={{
-                    width: { xs: "32vh", md: "38vh" },
-                    height: { xs: "32vh", md: "38vh" },
-                    borderRadius: "50%",
-                    padding: "0.75rem",
-                    marginBottom: { xs: "1rem", sm: 0 },
-                    marginRight: { xs: 0, md: "2rem" },
-                    boxShadow: 3,
-                  }}
-                  component="img"
-                  src={imageUrl || GenAI}
-                  alt="Image of developer"
-                />
-              </Grid>
-            </Grid>
+            </motion.div>
           </section>
 
           <section id="about" style={{ padding: "2rem 0" }}>
-            <AboutSection />
+            <motion.div
+              variants={sectionVariants}
+              initial="hidden"
+              animate="visible"
+            >
+              <AboutSection />
+            </motion.div>
           </section>
 
           <section id="resume" style={{ padding: "2rem 0" }}>
