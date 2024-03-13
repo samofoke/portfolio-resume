@@ -22,11 +22,37 @@ const HomePage = () => {
   const [showButton, setShowButton] = useState(false);
   const [imageUrl, setImageUrl] = useState(null);
   const [isLoading, setLoading] = useState(true);
+  const [displayText, setDisplayText] = useState("");
 
   const sectionVariants = {
     hidden: { y: 50, opacity: 0 },
     visible: { y: 0, opacity: 1, transition: { duration: 0.7 } },
   };
+  useEffect(() => {
+    const typeWriter = () => {
+      const TitleProfession = HomePageInfo.myProfession.trim();
+      const maxCharacters = TitleProfession.length;
+      let currentIndex = 0;
+
+      const typeIntervals = setInterval(() => {
+        const currentText = TitleProfession.slice(0, currentIndex + 1);
+        setDisplayText(currentText);
+        currentIndex++;
+
+        if (currentIndex >= maxCharacters) {
+          clearInterval(typeIntervals);
+          setTimeout(() => {
+            setDisplayText("");
+            typeWriter();
+          }, 2000);
+        }
+      }, 100);
+
+      return () => clearInterval(typeIntervals);
+    };
+
+    typeWriter();
+  }, []);
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -98,7 +124,8 @@ const HomePage = () => {
                   <Box sx={{ p: 2 }}>
                     <Typography variant="h4">{HomePageInfo.myTitle}</Typography>
                     <Typography variant="h5">
-                      {HomePageInfo.myProfession}
+                      {displayText}
+                      <span style={{ opacity: 0.5 }}>|</span>
                     </Typography>
                     <Box
                       sx={{

@@ -76,11 +76,8 @@ const NavBar = () => {
       );
     } else {
       return (
-        <Link to={item.path}>
-          <CustomButton
-            key={item.label}
-            sx={{ color: theme.palette.text.primary, ml: 2 }}
-          >
+        <Link to={item.path} key={item.path}>
+          <CustomButton sx={{ color: theme.palette.text.primary, ml: 2 }}>
             {item.label}
           </CustomButton>
         </Link>
