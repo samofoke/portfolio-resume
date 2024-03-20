@@ -3,6 +3,9 @@ import {
   createUser,
   createUserAuthDocument,
 } from "../../../utils/FirebaseConfigFile/firbebaseConfig";
+import * as Yup from "yup";
+import { TextField, Button } from "@mui/material";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 
 const defaultFormFields = {
   displayName: "",
@@ -35,6 +38,19 @@ const SignUpForm = () => {
     }
   };
 
+  const validationSchema = Yup.object({
+    displayName: Yup.string().required("Name is required."),
+    email: Yup.string()
+      .email("Invalid email format.")
+      .required("email required."),
+    password: Yup.string()
+      .required("Password is required.")
+      .min(8, "Passwod must be at least 8 characters."),
+    confirmPassword: Yup.string()
+      .required("Confirm password is required.")
+      .oneOf([Yup.ref("password"), null], "Password must much."),
+  });
+
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
   };
@@ -47,6 +63,15 @@ const SignUpForm = () => {
   return (
     <div>
       <h1>Sign up</h1>
+      <Formik
+        initialValues={defaultFormFields}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
+      >
+        <Form>
+          <TextField  />
+        </Form>
+      </Formik>
       <form onSubmit={handleSubmit}>
         <label>Name</label>
         <input
