@@ -19,7 +19,7 @@ const SignUpSignIn = () => {
 
   return (
     <Fragment>
-      <Grid container justifyContent="center">
+      <Grid container justifyContent="center" spacing={6}>
         <Grid item xs={12} sm={6} md={4}>
           <SignIn />
         </Grid>

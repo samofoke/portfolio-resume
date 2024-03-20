@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   createUser,
   createUserAuthDocument,
 } from "../../../utils/FirebaseConfigFile/firbebaseConfig";
 import * as Yup from "yup";
-import { TextField, Button } from "@mui/material";
+import { TextField, Button, Stack } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 
 const defaultFormFields = {
@@ -15,11 +15,8 @@ const defaultFormFields = {
 };
 
 const SignUpForm = () => {
-  const [formFields, setFormFields] = useState(defaultFormFields);
-  const { displayName, email, password, confirmPassword } = formFields;
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const handleSubmit = async (values) => {
+    const { displayName, email, password, confirmPassword } = values;
 
     if (password !== confirmPassword) {
       alert("password doesn't match...");
@@ -29,7 +26,6 @@ const SignUpForm = () => {
       const { user } = await createUser(email, password);
       await createUserAuthDocument(user, { displayName });
       console.log("user: ", user);
-      resetFormFields();
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
         alert("The Email already in use.");
@@ -51,15 +47,6 @@ const SignUpForm = () => {
       .oneOf([Yup.ref("password"), null], "Password must much."),
   });
 
-  const resetFormFields = () => {
-    setFormFields(defaultFormFields);
-  };
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormFields({ ...formFields, [name]: value });
-  };
-
   return (
     <div>
       <h1>Sign up</h1>
@@ -69,46 +56,71 @@ const SignUpForm = () => {
         onSubmit={handleSubmit}
       >
         <Form>
-          <TextField  />
+          <Stack direction="column" spacing={2}>
+            <Field name="displayName">
+              {({ field }) => (
+                <TextField
+                  {...field}
+                  margin="normal"
+                  id="displayName"
+                  label="Name"
+                  variant="outlined"
+                  helperText={<ErrorMessage name="displayName" />}
+                  error={Boolean(field.touched && field.error)}
+                />
+              )}
+            </Field>
+
+            <Field name="email">
+              {({ field }) => (
+                <TextField
+                  {...field}
+                  margin="normal"
+                  id="signup-email"
+                  label="Email"
+                  variant="outlined"
+                  helperText={<ErrorMessage name="email" />}
+                  error={Boolean(field.touched && field.error)}
+                />
+              )}
+            </Field>
+
+            <Field name="password">
+              {({ field }) => (
+                <TextField
+                  {...field}
+                  margin="normal"
+                  id="signup-password"
+                  label="Password"
+                  type="password"
+                  variant="outlined"
+                  helperText={<ErrorMessage name="password" />}
+                  error={Boolean(field.touched && field.error)}
+                />
+              )}
+            </Field>
+
+            <Field name="confirmPassword">
+              {({ field }) => (
+                <TextField
+                  {...field}
+                  margin="normal"
+                  id="confirmPassword"
+                  label="Confirm Password"
+                  type="password"
+                  variant="outlined"
+                  helperText={<ErrorMessage name="confirmPassword" />}
+                  error={Boolean(field.touched && field.error)}
+                />
+              )}
+            </Field>
+          </Stack>
+
+          <Button variant="contained" type="submit" color="primary">
+            Sign Up
+          </Button>
         </Form>
       </Formik>
-      <form onSubmit={handleSubmit}>
-        <label>Name</label>
-        <input
-          type="text"
-          required
-          onChange={handleChange}
-          name="displayName"
-          value={displayName}
-        />
-
-        <label>Email</label>
-        <input
-          type="email"
-          required
-          onChange={handleChange}
-          name="email"
-          value={email}
-        />
-
-        <label>Password</label>
-        <input
-          type="password"
-          required
-          onChange={handleChange}
-          name="password"
-          value={password}
-        />
-
-        <label>Confirm Password</label>
-        <input
-          name="confirmPassword"
-          type="password"
-          onChange={handleChange}
-          value={confirmPassword}
-        />
-        <button type="submit">sign up</button>
-      </form>
     </div>
   );
 };
