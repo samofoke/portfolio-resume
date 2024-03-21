@@ -4,7 +4,14 @@ import {
   createUserAuthDocument,
 } from "../../../utils/FirebaseConfigFile/firbebaseConfig";
 import * as Yup from "yup";
-import { TextField, Button, Stack } from "@mui/material";
+import {
+  TextField,
+  Button,
+  Stack,
+  Grid,
+  Typography,
+  Container,
+} from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 
 const defaultFormFields = {
@@ -48,8 +55,8 @@ const SignUpForm = () => {
   });
 
   return (
-    <div>
-      <h1>Sign up</h1>
+    <Container>
+      <Typography variant="h4">Sign Up</Typography>
       <Formik
         initialValues={defaultFormFields}
         validationSchema={validationSchema}
@@ -57,71 +64,89 @@ const SignUpForm = () => {
       >
         <Form>
           <Stack direction="column" spacing={2}>
-            <Field name="displayName">
-              {({ field }) => (
-                <TextField
-                  {...field}
-                  margin="normal"
-                  id="displayName"
-                  label="Name"
-                  variant="outlined"
-                  helperText={<ErrorMessage name="displayName" />}
-                  error={Boolean(field.touched && field.error)}
-                />
-              )}
-            </Field>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <Field name="displayName">
+                  {({ field }) => (
+                    <TextField
+                      {...field}
+                      fullWidth
+                      margin="normal"
+                      id="displayName"
+                      label="Name"
+                      variant="outlined"
+                      helperText={<ErrorMessage name="displayName" />}
+                      error={Boolean(field.touched && field.error)}
+                    />
+                  )}
+                </Field>
+              </Grid>
+              <Grid item xs={12}>
+                <Field name="email">
+                  {({ field }) => (
+                    <TextField
+                      {...field}
+                      fullWidth
+                      margin="normal"
+                      id="signup-email"
+                      label="Email"
+                      variant="outlined"
+                      helperText={<ErrorMessage name="email" />}
+                      error={Boolean(field.touched && field.error)}
+                    />
+                  )}
+                </Field>
+              </Grid>
+              <Grid item xs={12}>
+                <Field name="password">
+                  {({ field }) => (
+                    <TextField
+                      {...field}
+                      fullWidth
+                      margin="normal"
+                      id="signup-password"
+                      label="Password"
+                      type="password"
+                      variant="outlined"
+                      helperText={<ErrorMessage name="password" />}
+                      error={Boolean(field.touched && field.error)}
+                    />
+                  )}
+                </Field>
+              </Grid>
 
-            <Field name="email">
-              {({ field }) => (
-                <TextField
-                  {...field}
-                  margin="normal"
-                  id="signup-email"
-                  label="Email"
-                  variant="outlined"
-                  helperText={<ErrorMessage name="email" />}
-                  error={Boolean(field.touched && field.error)}
-                />
-              )}
-            </Field>
-
-            <Field name="password">
-              {({ field }) => (
-                <TextField
-                  {...field}
-                  margin="normal"
-                  id="signup-password"
-                  label="Password"
-                  type="password"
-                  variant="outlined"
-                  helperText={<ErrorMessage name="password" />}
-                  error={Boolean(field.touched && field.error)}
-                />
-              )}
-            </Field>
-
-            <Field name="confirmPassword">
-              {({ field }) => (
-                <TextField
-                  {...field}
-                  margin="normal"
-                  id="confirmPassword"
-                  label="Confirm Password"
-                  type="password"
-                  variant="outlined"
-                  helperText={<ErrorMessage name="confirmPassword" />}
-                  error={Boolean(field.touched && field.error)}
-                />
-              )}
-            </Field>
+              <Grid item xs={12}>
+                <Field name="confirmPassword">
+                  {({ field }) => (
+                    <TextField
+                      {...field}
+                      fullWidth
+                      margin="normal"
+                      id="confirmPassword"
+                      label="Confirm Password"
+                      type="password"
+                      variant="outlined"
+                      helperText={<ErrorMessage name="confirmPassword" />}
+                      error={Boolean(field.touched && field.error)}
+                    />
+                  )}
+                </Field>
+              </Grid>
+              <Grid item xs={12}>
+                <Button
+                  fullWidth
+                  variant="contained"
+                  type="submit"
+                  color="primary"
+                >
+                  Sign Up
+                </Button>
+              </Grid>
+            </Grid>
           </Stack>
-
-          <Button variant="contained" type="submit" color="primary">
-            Sign Up
-          </Button>
         </Form>
       </Formik>
-    </div>
+    </Container>
   );
 };
 
