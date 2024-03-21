@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   createUser,
   createUserAuthDocument,
@@ -11,8 +11,10 @@ import {
   Grid,
   Typography,
   Container,
+  CircularProgress,
 } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import PopUp from "../../../utils/DynamicComponents/PopUp/Popup";
 
 const defaultFormFields = {
   displayName: "",
@@ -22,22 +24,46 @@ const defaultFormFields = {
 };
 
 const SignUpForm = () => {
+  const [loading, setLoading] = useState(false);
+  const [openPopup, setOpenPopup] = useState(false);
+  const [popContent, setPopupContent] = useState({ title: "", message: "" });
+
   const handleSubmit = async (values) => {
     const { displayName, email, password, confirmPassword } = values;
 
     if (password !== confirmPassword) {
-      alert("password doesn't match...");
+      setPopupContent({
+        title: "Error",
+        message: "Passwords do not match.",
+      });
+      setOpenPopup(true);
       return;
     }
+
+    setLoading(true);
+
     try {
       const { user } = await createUser(email, password);
       await createUserAuthDocument(user, { displayName });
+      setPopupContent({
+        title: "Sign up Successful.",
+        message: "Your Account has been Successfully created.",
+      });
+      setOpenPopup(true);
       console.log("user: ", user);
     } catch (error) {
+      let errorMessage = "The Email already in use.";
       if (error.code === "auth/email-already-in-use") {
-        alert("The Email already in use.");
+        errorMessage = "The Email already in use.";
       }
+      setPopupContent({
+        title: "Error",
+        message: errorMessage,
+      });
+      setOpenPopup(true);
       console.log("Error during sign up: ", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -56,6 +82,20 @@ const SignUpForm = () => {
 
   return (
     <Container>
+      <PopUp
+        open={openPopup}
+        onClose={() => setOpenPopup(false)}
+        title={popContent.title}
+        content={<Typography>{popContent.message}</Typography>}
+        actions={[
+          {
+            label: "OK",
+            onClick: () => setOpenPopup(false),
+            color: "primary",
+          },
+        ]}
+      />
+
       <Typography variant="h4">Sign Up</Typography>
       <Formik
         initialValues={defaultFormFields}
@@ -138,8 +178,13 @@ const SignUpForm = () => {
                   variant="contained"
                   type="submit"
                   color="primary"
+                  disabled={loading}
                 >
-                  Sign Up
+                  {loading ? (
+                    <CircularProgress size={24} color="inherit" />
+                  ) : (
+                    "Sign Up"
+                  )}
                 </Button>
               </Grid>
             </Grid>
