@@ -71,7 +71,10 @@ const Contact = () => {
             Email:{" "}
             <Link
               href="mailto:sabataernestmofokeng@gmail.com"
-              style={{ color: lightTheme.palette.link.main }}
+              style={{
+                color: lightTheme.palette.link.main,
+                textDecoration: "none",
+              }}
             >
               sabataernestmofokeng@gmail.com
             </Link>
@@ -84,7 +87,10 @@ const Contact = () => {
             <Link
               href="https://github.com/samofoke"
               target="_blank"
-              style={{ color: lightTheme.palette.link.main }}
+              style={{
+                color: lightTheme.palette.link.main,
+                textDecoration: "none",
+              }}
             >
               samofoke
             </Link>
@@ -94,7 +100,10 @@ const Contact = () => {
             <Link
               href="https://www.linkedin.com/in/sabata-mofokeng-b6a267193/"
               target="_blank"
-              style={{ color: lightTheme.palette.link.main }}
+              style={{
+                color: lightTheme.palette.link.main,
+                textDecoration: "none",
+              }}
             >
               sabata-mofokeng
             </Link>

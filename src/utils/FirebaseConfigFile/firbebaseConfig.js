@@ -5,6 +5,7 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -16,6 +17,8 @@ const firebaseConfig = {
 };
 
 const fireBaseApp = initializeApp(firebaseConfig);
+
+export const storage = getStorage();
 
 export const auth = getAuth();
 
@@ -68,5 +71,19 @@ export const createUserAuthDocument = async (
     } catch (error) {
       console.log("Error creating the User: ", error.message);
     }
+  }
+};
+
+// Get images from firae storage
+
+export const getImagesFromUrl = async (storagePath) => {
+  try {
+    const imageRef = ref(storage, storagePath);
+    const downloadUrl = await getDownloadURL(imageRef);
+    // console.log("the path: ", downloadUrl);
+    return downloadUrl;
+  } catch (error) {
+    console.log("Error gettig the image url: ", error);
+    return null;
   }
 };

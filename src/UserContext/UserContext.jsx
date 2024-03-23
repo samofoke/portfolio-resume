@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect, useContext } from "react";
+import { signOut } from "firebase/auth";
 import { auth } from "../utils/FirebaseConfigFile/firbebaseConfig";
 import { getDoc, doc, getFirestore } from "firebase/firestore";
 
@@ -7,6 +8,7 @@ export const UserContext = createContext({
   userToken: null,
   permissions: [],
   loading: true,
+  logout: () => {},
 });
 
 export const db = getFirestore();
@@ -16,6 +18,17 @@ export const UserProvider = ({ children }) => {
   const [userToken, setUserToken] = useState(null);
   const [permissions, setPermissions] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  const logoutUser = async () => {
+    try {
+      await signOut(auth);
+      setCurrentUser(null);
+      setUserToken(null);
+      setPermissions([]);
+    } catch (error) {
+      console.log("Logout Error: ", error);
+    }
+  };
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (userAuth) => {
@@ -27,9 +40,7 @@ export const UserProvider = ({ children }) => {
         });
 
         if (userSnapShot.exists()) {
-          console.log("snap: ", userSnapShot.id);
           const userData = userSnapShot.data();
-          console.log("user data: ", userData);
           setCurrentUser({
             uid: userSnapShot.id,
             ...userData,
@@ -44,13 +55,13 @@ export const UserProvider = ({ children }) => {
       }
       setLoading(false);
     });
-    // console.log("sub user: ", unsubscribe);
+
     return unsubscribe;
   }, []);
 
   return (
     <UserContext.Provider
-      value={{ currentUser, userToken, permissions, loading }}
+      value={{ currentUser, userToken, permissions, loading, logoutUser }}
     >
       {children}
     </UserContext.Provider>
