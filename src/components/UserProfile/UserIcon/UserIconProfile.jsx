@@ -9,7 +9,7 @@ const UserIcon = () => {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-  console.log("user info: ", currentUser);
+  // console.log("user info: ", currentUser);
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -17,6 +17,11 @@ const UserIcon = () => {
 
   const handleCloseMenu = () => {
     setAnchorEl(null);
+  };
+
+  const handleProfileClick = () => {
+    navigate("/userprofile");
+    handleCloseMenu();
   };
 
   const handleLoginClick = () => {
@@ -44,7 +49,7 @@ const UserIcon = () => {
       <Menu anchorEl={anchorEl} open={open} onClose={handleCloseMenu}>
         {currentUser ? (
           <div>
-            <MenuItem onClick={handleCloseMenu}>Profile</MenuItem>
+            <MenuItem onClick={handleProfileClick}>Profile</MenuItem>
             <MenuItem onClick={handleLogout}>Logout</MenuItem>
           </div>
         ) : (

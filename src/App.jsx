@@ -14,6 +14,7 @@ import Contact from "./components/Contact/Contact";
 import Socials from "./components/Socials/Socials";
 import SignUpSignIn from "./pages/SignupAndSigninFrom/SignUpSignin";
 import { UserProvider } from "./UserContext/UserContext";
+import UserProfile from "./components/UserProfile/UserHomeProfile/UserProfile";
 
 const App = () => {
   return (
@@ -31,6 +32,7 @@ const App = () => {
               <Route path="blog" element={<BlogPage />} />
               <Route path="contact" element={<Contact />} />
               <Route path="signup" element={<SignUpSignIn />} />
+              <Route path="userprofile" element={<UserProfile />} />
             </Routes>
           </Box>
           <Socials />

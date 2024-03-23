@@ -15,18 +15,24 @@ import MenuIcon from "@mui/icons-material/Menu";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import { useTheme } from "@mui/material/styles";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { Link as ScrollLink } from "react-scroll";
 import CustomButton from "../../components/button/HoverButton";
 import { useThemeSwitcher } from "../../components/Themes/ThemeSwitcher";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { motion } from "framer-motion";
+import { useUserContext } from "../../UserContext/UserContext";
 import UserIcon from "../../components/UserProfile/UserIcon/UserIconProfile";
 
 const NavBar = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const { darkMode, toggleTheme } = useThemeSwitcher();
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const { currentUser, logoutUser } = useUserContext();
+
+  console.log("user Info: ", currentUser);
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
@@ -51,6 +57,20 @@ const NavBar = () => {
 
   const handleDrawerToogle = () => {
     setDrawerOpen(!drawerOpen);
+  };
+
+  const handleLogout = async () => {
+    try {
+      await logoutUser();
+      navigate("/");
+    } catch (error) {
+      console.log("Error login out: ", error);
+    }
+  };
+
+  const handleProfile = () => {
+    navigate("/userprofile");
+    handleDrawerToogle();
   };
 
   const navbarVariants = {
@@ -93,6 +113,21 @@ const NavBar = () => {
             <ListItemText primary={item.label} />
           </ListItem>
         ))}
+        {currentUser ? (
+          <ListItem button onClick={handleProfile}>
+            <ListItemText primary="Profile" />
+          </ListItem>
+        ) : (
+          <ListItem button component={Link} to="/signup">
+            <ListItemText primary="Login" />
+          </ListItem>
+        )}
+
+        {currentUser && (
+          <ListItem button onClick={handleLogout}>
+            <ListItemText primary="Logout" />
+          </ListItem>
+        )}
       </List>
     </Box>
   );
