@@ -28,7 +28,7 @@ const SignUpForm = () => {
   const [openPopup, setOpenPopup] = useState(false);
   const [popContent, setPopupContent] = useState({ title: "", message: "" });
 
-  const handleSubmit = async (values) => {
+  const handleSubmit = async (values, { resetForm }) => {
     const { displayName, email, password, confirmPassword } = values;
 
     if (password !== confirmPassword) {
@@ -63,6 +63,7 @@ const SignUpForm = () => {
       setOpenPopup(true);
     } finally {
       setLoading(false);
+      resetForm();
     }
   };
 
@@ -73,7 +74,11 @@ const SignUpForm = () => {
       .required("email required."),
     password: Yup.string()
       .required("Password is required.")
-      .min(8, "Passwod must be at least 8 characters."),
+      .min(8, "Passwod must be at least 8 characters.")
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+        "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
+      ),
     confirmPassword: Yup.string()
       .required("Confirm password is required.")
       .oneOf([Yup.ref("password"), null], "Password must much."),

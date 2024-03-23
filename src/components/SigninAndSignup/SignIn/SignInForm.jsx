@@ -26,7 +26,7 @@ const SignIn = () => {
 
   const navigate = useNavigate();
 
-  const handleSubmit = async (values) => {
+  const handleSubmit = async (values, { resetForm }) => {
     const { email, password } = values;
 
     setLoading(true);
@@ -52,6 +52,7 @@ const SignIn = () => {
       setOpenPopup(true);
     } finally {
       setLoading(false);
+      resetForm();
     }
   };
 
