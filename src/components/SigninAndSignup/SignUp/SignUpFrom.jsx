@@ -61,7 +61,6 @@ const SignUpForm = () => {
         message: errorMessage,
       });
       setOpenPopup(true);
-      console.log("Error during sign up: ", error);
     } finally {
       setLoading(false);
     }

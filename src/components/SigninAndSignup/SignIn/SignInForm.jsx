@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -9,7 +9,9 @@ import {
   Grid,
   Typography,
   Container,
+  CircularProgress,
 } from "@mui/material";
+import PopUp from "../../../utils/DynamicComponents/PopUp/Popup";
 import { signInUser } from "../../../utils/FirebaseConfigFile/firbebaseConfig";
 
 const defaultFormFields = {
@@ -18,16 +20,38 @@ const defaultFormFields = {
 };
 
 const SignIn = () => {
+  const [loading, setLoading] = useState(false);
+  const [openPopup, setOpenPopup] = useState(false);
+  const [popContent, setPopupContent] = useState({ title: "", message: "" });
+
   const navigate = useNavigate();
 
   const handleSubmit = async (values) => {
     const { email, password } = values;
+
+    setLoading(true);
+
     try {
       const response = await signInUser(email, password);
+      setPopupContent({
+        title: "Sign in Successful.",
+        message: "User signed in Successfully.",
+      });
+      setOpenPopup(true);
       console.log("user: ", response);
       navigate("/");
     } catch (error) {
-      console.log("Error Submitting user details: ", error);
+      let errorMessage = "Invalid Login Cedentails";
+      if (error.code === "auth/invalid-credential") {
+        errorMessage = "Invalid Login Cedentails.";
+      }
+      setPopupContent({
+        title: "Error",
+        message: errorMessage,
+      });
+      setOpenPopup(true);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -40,6 +64,19 @@ const SignIn = () => {
 
   return (
     <Container>
+      <PopUp
+        open={openPopup}
+        onClose={() => setOpenPopup(false)}
+        title={popContent.title}
+        content={<Typography>{popContent.message}</Typography>}
+        actions={[
+          {
+            label: "OK",
+            onClick: () => setOpenPopup(false),
+            color: "primary",
+          },
+        ]}
+      />
       <Typography variant="h4">Sign In</Typography>
       <Formik
         initialValues={defaultFormFields}
@@ -89,8 +126,13 @@ const SignIn = () => {
                   variant="contained"
                   type="submit"
                   color="primary"
+                  disabled={loading}
                 >
-                  Sign in
+                  {loading ? (
+                    <CircularProgress size={24} color="inherit" />
+                  ) : (
+                    "Sign in"
+                  )}
                 </Button>
               </Grid>
             </Grid>
