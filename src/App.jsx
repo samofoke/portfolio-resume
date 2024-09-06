@@ -1,6 +1,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { Box } from "@mui/material";
+import ReactGA from "react-ga4"
 import ThemeSwitcher from "./components/Themes/ThemeSwitcher";
 import { CssBaseline } from "@mui/material";
 import NavBar from "./routes/Navigation/navigation";
@@ -17,6 +18,7 @@ import { UserProvider } from "./UserContext/UserContext";
 import UserProfile from "./components/UserProfile/UserHomeProfile/UserProfile";
 
 const App = () => {
+  ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS)
   return (
     <UserProvider>
       <ThemeSwitcher>

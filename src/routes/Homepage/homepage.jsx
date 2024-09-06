@@ -16,6 +16,7 @@ import ResumeSection from "../../components/Sections/ResumeSection";
 import Contact from "../../components/Contact/Contact";
 import { HomePageInfo } from "../../assets/bioInfo";
 import { motion } from "framer-motion";
+import ReactGA from "react-ga4";
 import { getImagesFromUrl } from "../../utils/FirebaseConfigFile/firbebaseConfig";
 
 const HomePage = () => {
@@ -23,6 +24,12 @@ const HomePage = () => {
   const [imageUrl, setImageUrl] = useState(null);
   const [isLoading, setLoading] = useState(true);
   const [displayText, setDisplayText] = useState("");
+
+  ReactGA.send({
+    hitType: "pageview",
+    page: "/",
+    title: "HomePage"
+  })
 
   const sectionVariants = {
     hidden: { y: 50, opacity: 0 },
