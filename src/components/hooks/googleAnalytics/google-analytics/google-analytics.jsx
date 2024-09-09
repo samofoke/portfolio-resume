@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import {useEffect} from "react";
 import ReactGA from "react-ga4";
 import TagManager from "react-gtm-module";
 
