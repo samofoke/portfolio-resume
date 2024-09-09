@@ -1,8 +1,6 @@
-import React, {useEffect} from "react";
+import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { Box } from "@mui/material";
-import ReactGA from "react-ga4"
-import TagManager from "react-gtm-module"
 import ThemeSwitcher from "./components/Themes/ThemeSwitcher";
 import { CssBaseline } from "@mui/material";
 import NavBar from "./routes/Navigation/navigation";
