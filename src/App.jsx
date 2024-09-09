@@ -1,7 +1,8 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Routes, Route } from "react-router-dom";
 import { Box } from "@mui/material";
 import ReactGA from "react-ga4"
+import TagManager from "react-gtm-module"
 import ThemeSwitcher from "./components/Themes/ThemeSwitcher";
 import { CssBaseline } from "@mui/material";
 import NavBar from "./routes/Navigation/navigation";
@@ -15,10 +16,19 @@ import Contact from "./components/Contact/Contact";
 import Socials from "./components/Socials/Socials";
 import SignUpSignIn from "./pages/SignupAndSigninFrom/SignUpSignin";
 import { UserProvider } from "./UserContext/UserContext";
+import useAnalytics from "./components/hooks/googleAnalytics/google-analytics/google-analytics";
+import usePageTracking from "./components/hooks/user-page-tracker/userTracker";
 import UserProfile from "./components/UserProfile/UserHomeProfile/UserProfile";
 
 const App = () => {
-  ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS)
+
+  // Initialize analytics
+  useAnalytics();
+
+  // Track page views
+  usePageTracking();
+
+  
   return (
     <UserProvider>
       <ThemeSwitcher>
