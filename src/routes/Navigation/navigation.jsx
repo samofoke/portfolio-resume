@@ -32,7 +32,7 @@ const NavBar = () => {
 
   const { currentUser, logoutUser } = useUserContext();
 
-  console.log("user Info: ", currentUser);
+  // console.log("user Info: ", currentUser);
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
