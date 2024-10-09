@@ -29,9 +29,6 @@ const GoogleAnalyticsTracker = () => {
         page_title: pageTitle,
       });
     }
-
-    console.log("document title: ", document.title);
-    console.log("GA data: ", routeTitles[pathname]);
   }, [location, gToken]);
 
   return null;
