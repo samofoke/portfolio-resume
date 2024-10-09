@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 const GoogleAnalyticsTracker = () => {
@@ -8,7 +8,7 @@ const GoogleAnalyticsTracker = () => {
   console.log("location: ", location);
 
   useEffect(() => {
-    if (window.gtag === "function" && gTocken) {
+    if (window.gtag && gTocken) {
       window.gtag("config", gTocken, {
         page_path: location.pathname + location.search,
         page_title: document.title,
