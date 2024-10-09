@@ -3,18 +3,36 @@ import { useLocation } from "react-router-dom";
 
 const GoogleAnalyticsTracker = () => {
   const location = useLocation();
-  const gTocken = process.env.REACT_APP_GOOGLE_ANALYTICS;
-
-  console.log("location: ", location);
+  const gToken = process.env.REACT_APP_GOOGLE_ANALYTICS;
 
   useEffect(() => {
-    if (window.gtag && gTocken) {
-      window.gtag("config", gTocken, {
+    const { pathname } = location;
+
+    const routeTitles = {
+      "/": "Home Page",
+      "/about": "About Page",
+      "/resume": "Resume Page",
+      "/portfolio": "Portfolio Page",
+      "/blog": "Blog Page",
+      "/contact": "Contact Page",
+      "/signup": "Sign Up / Sign In",
+      "/userprofile": "User Profile",
+    };
+
+    const pageTitle = routeTitles[pathname] || "Sabata Mofokeng";
+
+    document.title = pageTitle;
+
+    if (typeof window.gtag === "function" && gToken) {
+      window.gtag("config", gToken, {
         page_path: location.pathname + location.search,
-        page_title: document.title,
+        page_title: pageTitle,
       });
     }
-  }, [location, gTocken]);
+
+    console.log("document title: ", document.title);
+    console.log("GA data: ", routeTitles[pathname]);
+  }, [location, gToken]);
 
   return null;
 };
