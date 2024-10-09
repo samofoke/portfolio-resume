@@ -6,7 +6,7 @@ const GoogleAnalyticsTracker = () => {
   const gTocken = process.env.REACT_APP_GOOGLE_ANALYTICS;
 
   useEffect(() => {
-    if (window.gtag && gTocken) {
+    if (window.gtag === "function" && gTocken) {
       window.gtag("config", gTocken, {
         page_path: location.pathname + location.search,
         page_title: document.title,
