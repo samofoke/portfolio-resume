@@ -24,9 +24,10 @@ const GoogleAnalyticsTracker = () => {
     document.title = pageTitle;
 
     if (typeof window.gtag === "function" && gToken) {
-      window.gtag("config", gToken, {
-        page_path: location.pathname + location.search,
+      window.gtag("event", "page_view", {
         page_title: pageTitle,
+        page_path: pathname,
+        send_to: gToken,
       });
     }
   }, [location, gToken]);
