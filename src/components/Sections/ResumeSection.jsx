@@ -95,24 +95,6 @@ const ResumeSection = () => {
               secondary="March 2021 - Feb 2023: Migrated Angular application to React, maintained production code, worked on backend microservices, and used Docker and Kubernetes for deployment."
             />
           </ListItem>
-          <ListItem>
-            <ListItemIcon>
-              <WorkOutlineIcon />
-            </ListItemIcon>
-            <ListItemText
-              primary="Technical Mentor, WeThinkCode_"
-              secondary="August 2020 - February 2021: Assisted students with understanding material through practical exercises and shared development experience."
-            />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon>
-              <WorkOutlineIcon />
-            </ListItemIcon>
-            <ListItemText
-              primary="Software Engineer Intern, Vodacom"
-              secondary="February 2020 - June 2020: Worked on a team building a tool from UI frontend in React.js to microservice backend integrated with Angular.js."
-            />
-          </ListItem>
         </List>
       </Box>
 
