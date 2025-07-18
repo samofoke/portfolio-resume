@@ -33,10 +33,10 @@ const AboutSection = () => {
             </Typography>
             <Typography variant="body1">
               As a Software Engineer with a rich background in developing robust
-              end-to-end web solutions. My technical journey spans over 3 years,
-              deeply involved in front-end and back-end development across
-              diverse frameworks like React, Angular, and Next.js, coupled with
-              Node.js and Express.js expertise.
+              end-to-end web solutions. My technical journey spans over 4+
+              years, deeply involved in front-end and back-end development
+              across diverse frameworks like React, Angular, and Next.js,
+              coupled with Node.js, Express.js and Flask expertise.
             </Typography>
           </Paper>
         </Grid>
