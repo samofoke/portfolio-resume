@@ -113,7 +113,16 @@ const ResumePage = () => {
                 <ListItemText secondary="Typescript" />
               </ListItem>
               <ListItem>
-                <ListItemText secondary="Node.js" />
+                <ListItemText secondary="Python" />
+              </ListItem>
+              <ListItem>
+                <ListItemText secondary="Go lang" />
+              </ListItem>
+              <ListItem>
+                <ListItemText secondary="React/Angular/Vue" />
+              </ListItem>
+              <ListItem>
+                <ListItemText secondary="Node.js/Falsk" />
               </ListItem>
               <ListItem>
                 <ListItemText secondary="PostgreSQL/MongoDB/FireBase" />
@@ -171,6 +180,39 @@ const ResumePage = () => {
           <Box sx={{ mb: 4 }}>
             <Typography variant="h6">Work Experience</Typography>
             <List>
+              <ListItem alignItems="flex-start">
+                <ListItemIcon sx={{ marginTop: "8px" }}>
+                  <WorkOutlineIcon />
+                </ListItemIcon>
+                <ListItemText
+                  primary="Software Engineer (Full Stack), Servisor – South Africa"
+                  secondary={
+                    <>
+                      May 2024 – Present
+                      <br />
+                      • Collaborate with Product and UX to refine project briefs
+                      in JIRA—capturing objectives, scope current & future, user
+                      stories, wireframes, release plans and analytics.
+                      <br />
+                      • Define clear acceptance criteria and test cases; lead
+                      three-week sprint planning, backlog grooming, stand-ups,
+                      reviews and retrospectives.
+                      <br />
+                      • Architect and implement Python & Node.js microservices
+                      REST & GraphQL, React/Next.js frontends with
+                      WCAG-compliant accessibility and SSR/ISR.
+                      <br />
+                      • Establish CI/CD pipelines GitHub Actions, Jenkins,
+                      Docker BuildKit, Kubernetes Helm, Operators, blue/green &
+                      canary rollouts with rollback strategies.
+                      <br />• Lead threat modeling (STRIDE), secure code reviews
+                      (OWASP Top 10), policy-as-code maintenance, scans, Vault
+                      secrets management.
+                    </>
+                  }
+                />
+              </ListItem>
+
               <ListItem alignItems="flex-start">
                 <ListItemIcon sx={{ marginTop: "8px" }}>
                   <WorkOutlineIcon />
