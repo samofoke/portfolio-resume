@@ -199,8 +199,8 @@ const ResumePage = () => {
                       reviews and retrospectives.
                       <br />
                       • Architect and implement Python & Node.js microservices
-                      REST & GraphQL, React/Next.js frontends with
-                      WCAG-compliant accessibility and SSR/ISR.
+                      REST & GraphQL, React frontends with WCAG-compliant
+                      accessibility and SSR/ISR.
                       <br />
                       • Establish CI/CD pipelines GitHub Actions, Jenkins,
                       Docker BuildKit, Kubernetes Helm, Operators, blue/green &
