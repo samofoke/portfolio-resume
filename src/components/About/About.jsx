@@ -116,7 +116,7 @@ const AboutPage = () => {
             <Typography variant="h6" gutterBottom>
               Back-End Development
             </Typography>
-            <Typography>Node.js, Express.js</Typography>
+            <Typography>Node.js, Express.js, Flask</Typography>
           </Paper>
         </Grid>
         <Grid item xs={12} sm={6} md={4} lg={6}>
