@@ -113,7 +113,16 @@ const ResumePage = () => {
                 <ListItemText secondary="Typescript" />
               </ListItem>
               <ListItem>
-                <ListItemText secondary="Node.js" />
+                <ListItemText secondary="Python" />
+              </ListItem>
+              <ListItem>
+                <ListItemText secondary="Go lang" />
+              </ListItem>
+              <ListItem>
+                <ListItemText secondary="React/Angular/Vue" />
+              </ListItem>
+              <ListItem>
+                <ListItemText secondary="Node.js/Falsk" />
               </ListItem>
               <ListItem>
                 <ListItemText secondary="PostgreSQL/MongoDB/FireBase" />
@@ -176,8 +185,41 @@ const ResumePage = () => {
                   <WorkOutlineIcon />
                 </ListItemIcon>
                 <ListItemText
-                  primary="Full Stack Developer, CDA Solutions SA"
-                  secondary="May 2023 - Present: I have experience using Python to create automation scripts that interface with SMTP servers to streamline tasks that once required manual attention. Additionally, I have contributed to two distinct projects, utilizing the strengths of Node.js, React, Material UI, and PostgreSQL. I have played a key role in architecting build process flows and constructing ERDs while meticulously tracking progress through Jira. Currently, I am leading the development of an onboarding broker functionality for a Next.js project."
+                  primary="Software Engineer (Full Stack), Servisor – South Africa"
+                  secondary={
+                    <>
+                      May 2024 – Present
+                      <br />
+                      • Collaborate with Product and UX to refine project briefs
+                      in JIRA—capturing objectives, scope current & future, user
+                      stories, wireframes, release plans and analytics.
+                      <br />
+                      • Define clear acceptance criteria and test cases; lead
+                      three-week sprint planning, backlog grooming, stand-ups,
+                      reviews and retrospectives.
+                      <br />
+                      • Architect and implement Python & Node.js microservices
+                      REST & GraphQL, React frontends with WCAG-compliant
+                      accessibility and SSR/ISR.
+                      <br />
+                      • Establish CI/CD pipelines GitHub Actions, Jenkins,
+                      Docker BuildKit, Kubernetes Helm, Operators, blue/green &
+                      canary rollouts with rollback strategies.
+                      <br />• Lead threat modeling (STRIDE), secure code reviews
+                      (OWASP Top 10), policy-as-code maintenance, scans, Vault
+                      secrets management.
+                    </>
+                  }
+                />
+              </ListItem>
+
+              <ListItem alignItems="flex-start">
+                <ListItemIcon sx={{ marginTop: "8px" }}>
+                  <WorkOutlineIcon />
+                </ListItemIcon>
+                <ListItemText
+                  primary="Software Engineer (Full Stack), CDA Solutions - South Africa"
+                  secondary="May 2023 - Dec 2023: I have experience using Python to create automation scripts that interface with SMTP servers to streamline tasks that once required manual attention. Additionally, I have contributed to two distinct projects, utilizing the strengths of Node.js, React, Material UI, and PostgreSQL. I have played a key role in architecting build process flows and constructing ERDs while meticulously tracking progress through Jira. Currently, I am leading the development of an onboarding broker functionality for a Next.js project."
                 />
               </ListItem>
 
