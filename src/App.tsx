@@ -19,7 +19,7 @@ function App() {
       <h1>Vite + React</h1>
       <h2>
         This is going to be the new build moving forward to imprive the existing
-        app
+        app this is dope
       </h2>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
