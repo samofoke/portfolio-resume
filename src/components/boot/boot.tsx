@@ -89,50 +89,46 @@ const BootLoader: React.FC<BootLoaderProp> = ({ onComplete }) => {
   }, [loading, onComplete]);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-4 py-8  relative overflow-hidden">
-      {loading ? (
-        <div className="text-center max-w-lg w-full backdrop-blur-sm p-6 rounded-lg border border-terminal-darkgray/30 bg-terminal-black/60">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <Code size={24} className="text-terminal-bronze" />
-            <h1 className="cyberpunk-text text-terminal-bronze text-xl font-bold">
-              The Terminal System
-            </h1>
-          </div>
-
-          <div className="text-terminal-green text-left mb-4 h-40 overflow-hidden font-mono text-sm">
-            {bootMessages.map((message, index) => (
-              <div
-                key={index}
-                className="mb-1 animate-fade-in"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <span className="text-terminal-purple mr-2">[SYSTEM]</span>{" "}
-                {message}
-              </div>
-            ))}
-          </div>
-
-          <div className="text-terminal-cyan font-mono text-sm mb-3">
-            {connectionMessage}
-            <span
-              className={`inline-block w-2 h-4 bg-terminal-bronze ml-1 ${cursorVisible ? "opacity-100" : "opacity-0"}`}
-            ></span>
-          </div>
-
-          <div className="w-full h-2 bg-terminal-darkgray/30 rounded-full overflow-hidden mb-2">
-            <div
-              className="h-full bg-gradient-to-r from-terminal-bronze via-terminal-purple to-terminal-pink transition-all duration-300 ease-out"
-              style={{ width: `${bootProgress}%` }}
-            ></div>
-          </div>
-
-          <div className="text-xs text-terminal-green/70 font-mono">
-            {Math.round(bootProgress)}% complete
-          </div>
+    <div className="w-full max-w-lg">
+      <div className="text-center max-w-lg w-full">
+        <div className="flex items-center justify-center gap-2 mb-4">
+          <Code size={24} className="text-terminal-bronze" />
+          <h1 className="cyberpunk-text text-terminal-bronze text-xl font-bold">
+            THE TERMINAL SYSTEM
+          </h1>
         </div>
-      ) : (
-        <></>
-      )}
+
+        <div className="text-terminal-green text-left mb-4 h-40 overflow-hidden font-mono text-sm">
+          {bootMessages.map((message, index) => (
+            <div
+              key={index}
+              className="mb-1 animate-fade-in"
+              style={{ animationDelay: `${index * 100}ms` }}
+            >
+              <span className="text-terminal-purple mr-2">[SYSTEM]</span>{" "}
+              {message}
+            </div>
+          ))}
+        </div>
+
+        <div className="text-terminal-cyan font-mono text-sm mb-3">
+          {connectionMessage}
+          <span
+            className={`inline-block w-2 h-4 bg-terminal-bronze ml-1 ${cursorVisible ? "opacity-100" : "opacity-0"}`}
+          ></span>
+        </div>
+
+        <div className="w-full h-2 bg-terminal-darkgray/30 rounded-full overflow-hidden mb-2">
+          <div
+            className="h-full bg-gradient-to-r from-terminal-bronze via-terminal-purple to-terminal-pink transition-all duration-300 ease-out"
+            style={{ width: `${bootProgress}%` }}
+          ></div>
+        </div>
+
+        <div className="text-xs text-terminal-green/70 font-mono">
+          {Math.round(bootProgress)}% complete
+        </div>
+      </div>
     </div>
   );
 };
