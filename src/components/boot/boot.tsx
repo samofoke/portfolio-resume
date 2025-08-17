@@ -91,7 +91,7 @@ const BootLoader: React.FC<BootLoaderProp> = ({ onComplete }) => {
   return (
     <div className="w-full max-w-lg">
       <div className="text-center max-w-lg w-full">
-        <div className="flex items-center justify-center gap-2 mb-4">
+        <div className="flex items-center animate-fade-in justify-center gap-2 mb-4">
           <Code size={24} className="text-terminal-bronze" />
           <h1 className="cyberpunk-text text-terminal-bronze text-xl font-bold">
             TERMINAL SYSTEM
