@@ -84,6 +84,10 @@ const BootLoader: React.FC<BootLoaderProp> = ({ onComplete }) => {
     return trigger;
   }, []);
 
+  useEffect(() => {
+    if (!loading) onComplete?.();
+  }, [loading, onComplete]);
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 py-8 bg-terminal-black relative overflow-hidden">
       {/* Background grid lines */}
