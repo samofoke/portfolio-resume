@@ -94,7 +94,7 @@ const BootLoader: React.FC<BootLoaderProp> = ({ onComplete }) => {
         <div className="flex items-center justify-center gap-2 mb-4">
           <Code size={24} className="text-terminal-bronze" />
           <h1 className="cyberpunk-text text-terminal-bronze text-xl font-bold">
-            THE TERMINAL SYSTEM
+            TERMINAL SYSTEM
           </h1>
         </div>
 
