@@ -89,19 +89,13 @@ const BootLoader: React.FC<BootLoaderProp> = ({ onComplete }) => {
   }, [loading, onComplete]);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-4 py-8 bg-terminal-black relative overflow-hidden">
-      {/* Background grid lines */}
-      <div className="absolute inset-0 bg-grid-lines pointer-events-none"></div>
-
-      {/* Terminal screen scan line effect */}
-      <div className="absolute inset-0 scan-effect pointer-events-none"></div>
-
+    <div className="min-h-screen flex flex-col items-center justify-center px-4 py-8  relative overflow-hidden">
       {loading ? (
         <div className="text-center max-w-lg w-full backdrop-blur-sm p-6 rounded-lg border border-terminal-darkgray/30 bg-terminal-black/60">
           <div className="flex items-center justify-center gap-2 mb-4">
             <Code size={24} className="text-terminal-bronze" />
             <h1 className="cyberpunk-text text-terminal-bronze text-xl font-bold">
-              EA SYSTEM
+              The Terminal System
             </h1>
           </div>
 
