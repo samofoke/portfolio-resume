@@ -58,7 +58,7 @@ const ResumePage = () => {
                 padding: { xs: "0 1rem", md: "0" },
               }}
             >
-              I am a Software Engineer with 3 years of experience in designing
+              I am a Software Engineer with 5+ years of experience in designing
               and implementing end-to-end web solutions. I have worked with a
               variety of front-end and back-end technologies, including React,
               Angular, Next.js, Node.js, and Express.js. Additionally, I have
