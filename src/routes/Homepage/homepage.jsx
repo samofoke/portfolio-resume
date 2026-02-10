@@ -17,72 +17,97 @@ import Contact from "../../components/Contact/Contact";
 import { HomePageInfo } from "../../assets/bioInfo";
 import { motion } from "framer-motion";
 import ReactGA from "react-ga4";
-import { getImagesFromUrl } from "../../utils/FirebaseConfigFile/firbebaseConfig";
 
 const HomePage = () => {
   const [showButton, setShowButton] = useState(false);
-  const [imageUrl, setImageUrl] = useState(null);
-  const [isLoading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [displayText, setDisplayText] = useState("");
 
-  ReactGA.send({
-    hitType: "pageview",
-    page: "/",
-    title: "HomePage"
-  })
+  useEffect(() => {
+    ReactGA.send({
+      hitType: "pageview",
+      page: "/",
+      title: "HomePage",
+    });
+  }, []);
 
   const sectionVariants = {
     hidden: { y: 50, opacity: 0 },
     visible: { y: 0, opacity: 1, transition: { duration: 0.7 } },
   };
-  useEffect(() => {
-    const typeWriter = () => {
-      const TitleProfession = HomePageInfo.myProfession.trim();
-      const maxCharacters = TitleProfession.length;
-      let currentIndex = 0;
 
-      const typeIntervals = setInterval(() => {
-        const currentText = TitleProfession.slice(0, currentIndex + 1);
+  useEffect(() => {
+    const professionText = HomePageInfo.myProfession.trim();
+    let currentIndex = 0;
+    let typingIntervalId;
+    let pauseTimeoutId;
+
+    const typeWriter = () => {
+      typingIntervalId = setInterval(() => {
+        const currentText = professionText.slice(0, currentIndex + 1);
         setDisplayText(currentText);
         currentIndex++;
 
-        if (currentIndex >= maxCharacters) {
-          clearInterval(typeIntervals);
-          setTimeout(() => {
+        if (currentIndex >= professionText.length) {
+          clearInterval(typingIntervalId);
+          pauseTimeoutId = setTimeout(() => {
+            currentIndex = 0;
             setDisplayText("");
             typeWriter();
           }, 2000);
         }
       }, 100);
-
-      return () => clearInterval(typeIntervals);
     };
 
     typeWriter();
+
+    return () => {
+      clearInterval(typingIntervalId);
+      clearTimeout(pauseTimeoutId);
+    };
   }, []);
 
   useEffect(() => {
-    window.addEventListener("scroll", () => {
+    const onScroll = () => {
       if (window.scrollY > 300) {
         setShowButton(true);
       } else {
         setShowButton(false);
       }
-    });
+    };
+
+    window.addEventListener("scroll", onScroll);
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+    };
   }, []);
 
   useEffect(() => {
-    const fetchImage = async () => {
-      const imagePath = "gs://sly-blog-post.appspot.com/sabata_db/hacker.png";
-      try {
-        const downloadUrl = await getImagesFromUrl(imagePath);
-        setImageUrl(downloadUrl);
-        setLoading(false);
-      } catch (error) {
-        console.log("Error gettig the image url: ", error);
+    let isMounted = true;
+    const image = new Image();
+    const timeoutId = setTimeout(() => {
+      if (isMounted) {
+        setIsLoading(false);
+      }
+    }, 1500);
+
+    image.src = GenAI;
+    image.onload = () => {
+      if (isMounted) {
+        setIsLoading(false);
       }
     };
-    fetchImage();
+    image.onerror = () => {
+      if (isMounted) {
+        setIsLoading(false);
+      }
+    };
+
+    return () => {
+      isMounted = false;
+      clearTimeout(timeoutId);
+    };
   }, []);
 
   const scrollButton = () => {
@@ -130,7 +155,17 @@ const HomePage = () => {
                 >
                   <Box sx={{ p: 2 }}>
                     <Typography variant="h4">{HomePageInfo.myTitle}</Typography>
-                    <Typography variant="h5">
+                    <Typography
+                      variant="h5"
+                      sx={{
+                        fontSize: "clamp(0.85rem, 4.3vw, 1.5rem)",
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        textOverflow: "clip",
+                        minHeight: { xs: "1.6rem", sm: "2rem" },
+                        px: 1,
+                      }}
+                    >
                       {displayText}
                       <span style={{ opacity: 0.5 }}>|</span>
                     </Typography>
@@ -188,18 +223,31 @@ const HomePage = () => {
                 >
                   <Box
                     sx={{
-                      width: { xs: "32vh", md: "38vh" },
-                      height: { xs: "32vh", md: "38vh" },
+                      width: { xs: 240, sm: 280, md: 320 },
+                      aspectRatio: "1 / 1",
                       borderRadius: "50%",
                       padding: "0.75rem",
                       marginBottom: { xs: "1rem", sm: 0 },
                       marginRight: { xs: 0, md: "2rem" },
                       boxShadow: 3,
+                      backgroundColor: "background.paper",
                     }}
-                    component="img"
-                    src={imageUrl || GenAI}
-                    alt="Image of developer"
-                  />
+                  >
+                    <Box
+                      component="img"
+                      src={GenAI}
+                      alt="Image of developer"
+                      loading="eager"
+                      fetchPriority="high"
+                      sx={{
+                        width: "100%",
+                        height: "100%",
+                        borderRadius: "50%",
+                        objectFit: "cover",
+                        display: "block",
+                      }}
+                    />
+                  </Box>
                 </Grid>
               </Grid>
             </motion.div>
