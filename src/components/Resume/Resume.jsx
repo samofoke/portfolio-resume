@@ -2,313 +2,670 @@ import React, { useEffect } from "react";
 import {
   Box,
   Typography,
-  List,
   Link,
-  ListItem,
-  ListItemText,
-  ListItemIcon,
   Grid,
+  Stack,
+  Chip,
+  Paper,
 } from "@mui/material";
-import { lightTheme } from "../Themes/MainThemes";
+import { useTheme, alpha } from "@mui/material/styles";
+import { motion } from "framer-motion";
 import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
 import SchoolIcon from "@mui/icons-material/School";
+import VolunteerActivismIcon from "@mui/icons-material/VolunteerActivism";
+import EmailIcon from "@mui/icons-material/Email";
+import PhoneIcon from "@mui/icons-material/Phone";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+
+const skillGroups = [
+  {
+    label: "Languages",
+    items: ["TypeScript", "JavaScript", "Python", "SQL", "Go", "Rust", "C/C++"],
+  },
+  {
+    label: "Front-End",
+    items: ["React", "Next.js", "Angular", "MUI", "Tailwind CSS", "CSS3", "HTML5"],
+  },
+  {
+    label: "Back-End",
+    items: [
+      "Node.js",
+      "Express.js",
+      "Flask",
+      "FastAPI",
+      "RESTful APIs",
+      "GraphQL",
+      "Microservices",
+    ],
+  },
+  {
+    label: "Cloud & DevOps",
+    items: [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Git",
+      "CI/CD",
+      "GitHub Actions",
+      "ECR",
+    ],
+  },
+  {
+    label: "Databases",
+    items: [
+      "PostgreSQL",
+      "MongoDB",
+      "Neo4j",
+      "ClickHouse",
+      "Oracle",
+      "Firebase",
+    ],
+  },
+  {
+    label: "Tools",
+    items: [
+      "Jira",
+      "ERD Modeling",
+      "Payment Integrations",
+      "SMTP Integrations",
+      "Linux",
+      "VPS / VMs",
+    ],
+  },
+];
+
+const workHistory = [
+  {
+    role: "Software Engineer (Full-Stack)",
+    company: "Servisor — South Africa",
+    period: "May 2024 – Present",
+    points: [
+      "Delivery across the Servisor platform: React/TypeScript front-ends and Python/TypeScript microservices, with CI/CD GitHub Actions pipelines connecting to ECR.",
+      "API development with RESTful and GraphQL endpoints for VIN decoding and EMS integration.",
+      "Create and track branches named after Jira tickets, commit and open PRs into the development branch for review, following the SDLC cycle.",
+      "Collaborate with QA on test cases and defects; track and evaluate technical debt alongside feature work.",
+      "Tooling: GitHub, Postman, Docker, VS Code, MongoDB, PostgreSQL, K9s/Lens, Confluence, Loom, Toggl for time tracking.",
+    ],
+  },
+  {
+    role: "Software Engineer (Full-Stack)",
+    company: "CDA Solutions SA — South Africa",
+    period: "May 2023 – Dec 2023",
+    points: [
+      "Responsible for on-boarding-broker functionality for a Next.js platform, integrating Node.js APIs with PostgreSQL and external services.",
+      "API development with RESTful APIs and a client build using GraphQL.",
+      "Authored ERDs and documented build/release flows; tracked scope and risks in Jira.",
+      "Automated internal operations using Python scripts with SMTP to eliminate manual email workflows.",
+      "Built reusable React + Material UI components to streamline new features.",
+    ],
+  },
+  {
+    role: "Software Engineer",
+    company: "Vodacom — South Africa",
+    period: "Mar 2021 – Feb 2023",
+    points: [
+      "Migrated a QA platform from Angular to React, reducing maintenance overhead while preserving business logic and tests.",
+      "Maintained production Angular code and resolved high-priority defects within a microservices environment.",
+      "Contributed to back-end services (Node.js/Express) and containerized workloads with Docker/Kubernetes.",
+    ],
+  },
+  {
+    role: "Software Engineer Intern",
+    company: "Vodacom — South Africa",
+    period: "Feb 2020 – Jun 2020",
+    points: [
+      "Built a full-stack internal tool: React.js UI with a Node.js/Express.js/MongoDB service, integrated alongside existing Angular components.",
+    ],
+  },
+];
+
+const leadership = [
+  {
+    role: "Technical Mentor",
+    org: "WeThinkCode_",
+    period: "Aug 2020 – Feb 2021",
+    desc: "Guided students via HackerRank practice, code reviews, and study strategies.",
+  },
+  {
+    role: "Sourcing Strategy & Operations",
+    org: "WeThinkCode_",
+    period: "Dec 2019 – Feb 2020",
+    desc: "Helped design and implement candidate-sourcing strategy.",
+  },
+  {
+    role: "Volunteer",
+    org: "WeThinkCode_",
+    period: "Oct 2019 – Feb 2020",
+    desc: "Test setup and technical invigilation during selection bootcamps.",
+  },
+  {
+    role: "Economics/Accounting Tutor & Co-founder",
+    org: "Helping Hands Venture (NPO)",
+    period: "Mar 2013 – Mar 2017",
+    desc: "Co-founded a non-profit offering tutoring in economics and accounting.",
+  },
+];
+
+const education = [
+  {
+    school: "University of South Africa (UNISA)",
+    detail: "BSc Computing (in progress)",
+    period: "2019 – 2025",
+  },
+  {
+    school: "WeThinkCode_",
+    detail:
+      "Computer Software Engineering — National Certificate: Systems Development",
+    period: "2019 – 2021",
+  },
+  {
+    school: "ATTI Advanced Technology Training Institute",
+    detail:
+      "Systems Administrator Certificate (PC Technician, Network Technician, Windows Server 2016)",
+    period: "2017 – 2018",
+  },
+  {
+    school: "Lenyora La Thuto Secondary",
+    detail: "Matric",
+    period: "2007 – 2010",
+  },
+];
+
+const fadeUp = {
+  hidden: { y: 24, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+const stagger = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
+};
+
+const MotionBox = motion(Box);
+const MotionPaper = motion(Paper);
 
 const ResumePage = () => {
+  const theme = useTheme();
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
+  const cardStyle = {
+    p: { xs: 2.5, md: 3 },
+    borderRadius: 3,
+    border: `1px solid ${theme.palette.divider}`,
+    backgroundColor: "background.paper",
+    transition: "border-color 250ms ease, box-shadow 250ms ease",
+    "&:hover": {
+      borderColor: alpha(theme.palette.primary.main, 0.4),
+    },
+  };
+
+  const timelineItem = {
+    position: "relative",
+    pl: { xs: 3, sm: 4 },
+    pb: 4,
+    "&::before": {
+      content: '""',
+      position: "absolute",
+      left: 7,
+      top: 12,
+      bottom: -4,
+      width: "2px",
+      backgroundColor: alpha(theme.palette.primary.main, 0.25),
+    },
+    "&:last-of-type::before": { display: "none" },
+    "&::after": {
+      content: '""',
+      position: "absolute",
+      left: 0,
+      top: 6,
+      width: 16,
+      height: 16,
+      borderRadius: "50%",
+      border: `3px solid ${theme.palette.primary.main}`,
+      backgroundColor: theme.palette.background.default,
+    },
+  };
+
   return (
     <Box
       sx={{
-        p: 2,
-        maxWidth: "100%",
+        maxWidth: 1200,
         mx: "auto",
-        my: 2,
-        "@media print": {
-          boxShadow: "none",
-          maxWidth: "100%",
-          p: 1,
-        },
-        "@media (min-width: 600px)": {
-          p: 4,
-          my: 4,
-          maxWidth: 900,
-        },
+        px: { xs: 2, md: 4 },
+        py: { xs: 4, md: 8 },
       }}
     >
-      <Grid
-        container
-        spacing={2}
-        sx={{
-          "@media (min-width: 600px)": {
-            spacing: 4,
-          },
-        }}
+      {/* Hero */}
+      <MotionBox
+        initial="hidden"
+        animate="visible"
+        variants={stagger}
+        sx={{ textAlign: "center", mb: { xs: 5, md: 8 } }}
       >
-        <Grid item xs={12}>
-          <Box sx={{ mb: { xs: 2, md: 4 }, textAlign: "center" }}>
-            <Typography variant="h6">Professional Summary</Typography>
-            <Typography
-              variant="body1"
-              sx={{
-                textAlign: { xs: "left", md: "left" },
-                fontSize: { xs: "0.9rem", sm: "1rem" },
-                hyphens: "auto",
-                padding: { xs: "0 1rem", md: "0" },
-              }}
-            >
-              I am a Software Engineer with 5+ years of experience in designing
-              and implementing end-to-end web solutions. I have worked with a
-              variety of front-end and back-end technologies, including React,
-              Angular, Next.js, Node.js, and Express.js. Additionally, I have
-              experience with several databases, such as Oracle, MongoDB, and
-              PostgreSQL. I have hands-on experience with DevOps practices such
-              as continuous integration and delivery and have worked with tools
-              like Docker and Kubernetes to streamline deployment processes.
+        <motion.div variants={fadeUp}>
+          <Typography
+            variant="overline"
+            sx={{
+              color: "primary.main",
+              fontWeight: 600,
+              letterSpacing: "0.1em",
+            }}
+          >
+            Resume
+          </Typography>
+        </motion.div>
+        <motion.div variants={fadeUp}>
+          <Typography
+            variant="h1"
+            sx={{
+              fontSize: { xs: "2.25rem", sm: "3rem", md: "3.75rem" },
+              fontWeight: 700,
+              mt: 1,
+              mb: 1.5,
+            }}
+          >
+            Sabata Mofokeng
+          </Typography>
+        </motion.div>
+        <motion.div variants={fadeUp}>
+          <Typography
+            variant="h5"
+            sx={{
+              color: "primary.main",
+              fontWeight: 500,
+              fontSize: { xs: "1.05rem", md: "1.25rem" },
+              mb: 1,
+            }}
+          >
+            Software Engineer · Full-Stack &amp; DevOps
+          </Typography>
+        </motion.div>
+        <motion.div variants={fadeUp}>
+          <Stack
+            direction="row"
+            spacing={0.75}
+            alignItems="center"
+            justifyContent="center"
+            sx={{ mb: 2.5, color: "text.secondary" }}
+          >
+            <LocationOnIcon fontSize="small" />
+            <Typography variant="body2">
+              Johannesburg, South Africa
             </Typography>
-          </Box>
-        </Grid>
+          </Stack>
+        </motion.div>
+        <motion.div variants={fadeUp}>
+          <Typography
+            variant="body1"
+            sx={{
+              color: "text.secondary",
+              maxWidth: 720,
+              mx: "auto",
+              fontSize: { xs: "1rem", md: "1.1rem" },
+              lineHeight: 1.75,
+            }}
+          >
+            Full-stack engineer with 6+ years building end-to-end web solutions
+            across React/Next.js and Node.js/Python back ends. Comfortable
+            owning microservices, REST APIs, and CI/CD on AWS with
+            Docker/Kubernetes. A blend of front-end product delivery and
+            back-end architecture (ERDs, build flows), with hands-on mentorship
+            and volunteer experience.
+          </Typography>
+        </motion.div>
+      </MotionBox>
 
+      <Grid container spacing={{ xs: 3, md: 4 }}>
+        {/* Sidebar */}
         <Grid item xs={12} md={4}>
-          <Box sx={{ mb: 4 }}>
-            <Typography variant="h6">Contact Me At</Typography>
-            <Typography variant="body1">+27764084540</Typography>
-            <Typography variant="body1">
-              sabataernestmofokeng@gmail.com
-            </Typography>
-            <Typography variant="body1">
-              <Link
-                href="https://www.linkedin.com/in/sabata-mofokeng-b6a267193/"
-                underline="hover"
-                target="_blank"
-                rel="noopener"
-                style={{ color: lightTheme.palette.link.main }}
-              >
-                LinkedIn
-              </Link>{" "}
-              |{" "}
-              <Link
-                href="https://github.com/samofoke"
-                underline="hover"
-                target="_blank"
-                rel="noopener"
-                style={{ color: lightTheme.palette.link.main }}
-              >
-                GitHub
-              </Link>
-            </Typography>
-          </Box>
+          <Stack
+            spacing={3}
+            component={motion.div}
+            variants={stagger}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+          >
+            {/* Contact card */}
+            <MotionPaper elevation={0} variants={fadeUp} sx={cardStyle}>
+              <Typography variant="h6" sx={{ fontWeight: 600, mb: 2 }}>
+                Contact
+              </Typography>
+              <Stack spacing={1.5}>
+                <Stack direction="row" spacing={1.5} alignItems="center">
+                  <PhoneIcon fontSize="small" sx={{ color: "primary.main" }} />
+                  <Typography variant="body2">+27 76 408 4540</Typography>
+                </Stack>
+                <Stack direction="row" spacing={1.5} alignItems="center">
+                  <EmailIcon fontSize="small" sx={{ color: "primary.main" }} />
+                  <Link
+                    href="mailto:sabataernestmofokeng@gmail.com"
+                    underline="hover"
+                    sx={{
+                      color: "text.primary",
+                      fontSize: "0.875rem",
+                      wordBreak: "break-word",
+                    }}
+                  >
+                    sabataernestmofokeng@gmail.com
+                  </Link>
+                </Stack>
+                <Stack direction="row" spacing={1.5} alignItems="center">
+                  <LinkedInIcon
+                    fontSize="small"
+                    sx={{ color: "primary.main" }}
+                  />
+                  <Link
+                    href="https://www.linkedin.com/in/sabata-mofokeng-b6a267193/"
+                    target="_blank"
+                    rel="noopener"
+                    underline="hover"
+                    sx={{ color: "text.primary", fontSize: "0.875rem" }}
+                  >
+                    LinkedIn
+                  </Link>
+                </Stack>
+                <Stack direction="row" spacing={1.5} alignItems="center">
+                  <GitHubIcon fontSize="small" sx={{ color: "primary.main" }} />
+                  <Link
+                    href="https://github.com/samofoke"
+                    target="_blank"
+                    rel="noopener"
+                    underline="hover"
+                    sx={{ color: "text.primary", fontSize: "0.875rem" }}
+                  >
+                    github.com/samofoke
+                  </Link>
+                </Stack>
+              </Stack>
+            </MotionPaper>
 
-          <Box sx={{ mb: 4 }}>
-            <Typography variant="h6">Skills Summary</Typography>
-            <List>
-              <ListItem>
-                <ListItemText secondary="C/C++" />
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="JavaScript" />
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="Typescript" />
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="Python" />
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="Go lang" />
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="React/Angular/Vue" />
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="Node.js/Falsk" />
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="PostgreSQL/MongoDB/FireBase" />
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="Docker" />
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="Kubernetes" />
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="SourceTree/Git" />
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="AWS" />
-              </ListItem>
-            </List>
-          </Box>
-
-          <Box sx={{ mb: 4 }}>
-            <Typography variant="h6">References</Typography>
-            <List>
-              <ListItem>
-                <ListItemText
-                  primary="Pontsho Mogwere"
-                  secondary="Software Engineer | Vodacom | pontshomogwere@gmail.com"
-                />
-              </ListItem>
-
-              <ListItem>
-                <ListItemText
-                  primary="Zandile Langa"
-                  secondary="Software Architecture DGT | Vodacom | zandile.langa@vodacom.co.za"
-                />
-              </ListItem>
-
-              <ListItem>
-                <ListItemText
-                  primary="Given Makhobela"
-                  secondary="Quality Assurance Engineer | Vodacom | givenm@bbd.co.za"
-                />
-              </ListItem>
-
-              <ListItem>
-                <ListItemText
-                  primary="Morapedi Obakeng Masima"
-                  secondary="Junior Mobile App Dev | Momentum | morapedimasima@gmail.com"
-                />
-              </ListItem>
-            </List>
-          </Box>
+            {/* Core skills — grouped */}
+            <MotionPaper elevation={0} variants={fadeUp} sx={cardStyle}>
+              <Typography variant="h6" sx={{ fontWeight: 600, mb: 2 }}>
+                Core Skills
+              </Typography>
+              <Stack spacing={2.5}>
+                {skillGroups.map((group) => (
+                  <Box key={group.label}>
+                    <Typography
+                      variant="caption"
+                      sx={{
+                        color: "text.secondary",
+                        textTransform: "uppercase",
+                        letterSpacing: "0.08em",
+                        fontSize: "0.7rem",
+                        display: "block",
+                        mb: 1,
+                      }}
+                    >
+                      {group.label}
+                    </Typography>
+                    <Stack
+                      direction="row"
+                      flexWrap="wrap"
+                      useFlexGap
+                      spacing={0.75}
+                    >
+                      {group.items.map((item) => (
+                        <Chip
+                          key={item}
+                          label={item}
+                          size="small"
+                          sx={{
+                            height: 24,
+                            fontSize: "0.72rem",
+                            bgcolor: alpha(theme.palette.primary.main, 0.08),
+                            color: "text.primary",
+                            border: `1px solid ${alpha(
+                              theme.palette.primary.main,
+                              0.2
+                            )}`,
+                            fontWeight: 500,
+                            transition: "all 200ms ease",
+                            "&:hover": {
+                              bgcolor: alpha(
+                                theme.palette.primary.main,
+                                0.15
+                              ),
+                              borderColor: theme.palette.primary.main,
+                            },
+                          }}
+                        />
+                      ))}
+                    </Stack>
+                  </Box>
+                ))}
+              </Stack>
+            </MotionPaper>
+          </Stack>
         </Grid>
 
+        {/* Main content */}
         <Grid item xs={12} md={8}>
-          <Box sx={{ mb: 4 }}>
-            <Typography variant="h6">Work Experience</Typography>
-            <List>
-              <ListItem alignItems="flex-start">
-                <ListItemIcon sx={{ marginTop: "8px" }}>
-                  <WorkOutlineIcon />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Software Engineer (Full Stack), Servisor – South Africa"
-                  secondary={
-                    <>
-                      May 2024 – Present
-                      <br />
-                      • Collaborate with Product and UX to refine project briefs
-                      in JIRA—capturing objectives, scope current & future, user
-                      stories, wireframes, release plans and analytics.
-                      <br />
-                      • Define clear acceptance criteria and test cases; lead
-                      three-week sprint planning, backlog grooming, stand-ups,
-                      reviews and retrospectives.
-                      <br />
-                      • Architect and implement Python & Node.js microservices
-                      REST & GraphQL, React frontends with WCAG-compliant
-                      accessibility and SSR/ISR.
-                      <br />
-                      • Establish CI/CD pipelines GitHub Actions, Jenkins,
-                      Docker BuildKit, Kubernetes Helm, Operators, blue/green &
-                      canary rollouts with rollback strategies.
-                      <br />• Lead threat modeling (STRIDE), secure code reviews
-                      (OWASP Top 10), policy-as-code maintenance, scans, Vault
-                      secrets management.
-                    </>
-                  }
-                />
-              </ListItem>
+          <Stack
+            spacing={5}
+            component={motion.div}
+            variants={stagger}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.05 }}
+          >
+            {/* Professional summary */}
+            <MotionBox variants={fadeUp}>
+              <Typography variant="h5" sx={{ fontWeight: 600, mb: 2 }}>
+                Professional Summary
+              </Typography>
+              <Typography
+                variant="body1"
+                sx={{ color: "text.secondary", lineHeight: 1.75 }}
+              >
+                Full-stack engineer with 6+ years building end-to-end web
+                solutions across React/Next.js and Node.js/Python back ends.
+                Comfortable owning microservices, REST APIs, and CI/CD on AWS
+                with Docker and Kubernetes. I bring a blend of front-end
+                product delivery and back-end architecture (ERDs, build flows),
+                alongside hands-on mentorship and volunteer experience.
+              </Typography>
+            </MotionBox>
 
-              <ListItem alignItems="flex-start">
-                <ListItemIcon sx={{ marginTop: "8px" }}>
-                  <WorkOutlineIcon />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Software Engineer (Full Stack), CDA Solutions - South Africa"
-                  secondary="May 2023 - Dec 2023: I have experience using Python to create automation scripts that interface with SMTP servers to streamline tasks that once required manual attention. Additionally, I have contributed to two distinct projects, utilizing the strengths of Node.js, React, Material UI, and PostgreSQL. I have played a key role in architecting build process flows and constructing ERDs while meticulously tracking progress through Jira. Currently, I am leading the development of an onboarding broker functionality for a Next.js project."
-                />
-              </ListItem>
+            {/* Work experience timeline */}
+            <MotionBox variants={fadeUp}>
+              <Stack
+                direction="row"
+                alignItems="center"
+                spacing={1.5}
+                sx={{ mb: 3 }}
+              >
+                <WorkOutlineIcon sx={{ color: "primary.main" }} />
+                <Typography variant="h5" sx={{ fontWeight: 600 }}>
+                  Experience
+                </Typography>
+              </Stack>
+              <Box>
+                {workHistory.map((job) => (
+                  <Box
+                    key={job.company + job.period}
+                    component={motion.div}
+                    variants={fadeUp}
+                    sx={timelineItem}
+                  >
+                    <Stack
+                      direction={{ xs: "column", sm: "row" }}
+                      justifyContent="space-between"
+                      alignItems={{ xs: "flex-start", sm: "center" }}
+                      spacing={1}
+                      sx={{ mb: 1 }}
+                    >
+                      <Box>
+                        <Typography
+                          variant="subtitle1"
+                          sx={{ fontWeight: 600, lineHeight: 1.3 }}
+                        >
+                          {job.role}
+                        </Typography>
+                        <Typography
+                          variant="body2"
+                          sx={{ color: "text.secondary" }}
+                        >
+                          {job.company}
+                        </Typography>
+                      </Box>
+                      <Chip
+                        label={job.period}
+                        size="small"
+                        sx={{
+                          bgcolor: alpha(theme.palette.primary.main, 0.1),
+                          color: "primary.main",
+                          fontWeight: 500,
+                          height: 24,
+                        }}
+                      />
+                    </Stack>
+                    <Box
+                      component="ul"
+                      sx={{ m: 0, pl: 2.5, color: "text.secondary" }}
+                    >
+                      {job.points.map((point, idx) => (
+                        <Typography
+                          component="li"
+                          variant="body2"
+                          key={idx}
+                          sx={{ mb: 0.5, lineHeight: 1.6 }}
+                        >
+                          {point}
+                        </Typography>
+                      ))}
+                    </Box>
+                  </Box>
+                ))}
+              </Box>
+            </MotionBox>
 
-              <ListItem alignItems="flex-start">
-                <ListItemIcon sx={{ marginTop: "8px" }}>
-                  <WorkOutlineIcon />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Software Engineer, Vodacom"
-                  secondary="March 2021 - Feb 2023: I contributed to migrating the Angular application source code to React in JavaScript. This involved leveraging my skills to ensure a smooth transition between the two frameworks. I also maintained the production code for the Angular front-end application, utilizing material UI/styled-components to create user-friendly interfaces. Additionally, I worked on the Back-end in a microservice architecture, where I resolved bugs, updated outdated business logic, and versioned Node. I took ownership of updating DockerFiles and managing the Kubernetes cluster on AWS, including restarting and starting pods. I collaborated closely with my team members to deliver high-quality work."
-                />
-              </ListItem>
+            {/* Leadership & Volunteer */}
+            <MotionBox variants={fadeUp}>
+              <Stack
+                direction="row"
+                alignItems="center"
+                spacing={1.5}
+                sx={{ mb: 3 }}
+              >
+                <VolunteerActivismIcon sx={{ color: "primary.main" }} />
+                <Typography variant="h5" sx={{ fontWeight: 600 }}>
+                  Leadership &amp; Volunteer
+                </Typography>
+              </Stack>
+              <Stack spacing={2}>
+                {leadership.map((item) => (
+                  <MotionPaper
+                    key={item.role + item.period}
+                    elevation={0}
+                    variants={fadeUp}
+                    whileHover={{ x: 4 }}
+                    sx={{ ...cardStyle, p: 2.5 }}
+                  >
+                    <Stack
+                      direction={{ xs: "column", sm: "row" }}
+                      justifyContent="space-between"
+                      alignItems={{ xs: "flex-start", sm: "center" }}
+                      spacing={1}
+                      sx={{ mb: 0.75 }}
+                    >
+                      <Box>
+                        <Typography
+                          variant="subtitle1"
+                          sx={{ fontWeight: 600, lineHeight: 1.3 }}
+                        >
+                          {item.role}
+                        </Typography>
+                        <Typography
+                          variant="body2"
+                          sx={{ color: "text.secondary" }}
+                        >
+                          {item.org}
+                        </Typography>
+                      </Box>
+                      <Typography
+                        variant="caption"
+                        sx={{ color: "text.secondary", whiteSpace: "nowrap" }}
+                      >
+                        {item.period}
+                      </Typography>
+                    </Stack>
+                    <Typography
+                      variant="body2"
+                      sx={{ color: "text.secondary", lineHeight: 1.6 }}
+                    >
+                      {item.desc}
+                    </Typography>
+                  </MotionPaper>
+                ))}
+              </Stack>
+            </MotionBox>
 
-              <ListItem alignItems="flex-start">
-                <ListItemIcon sx={{ marginTop: "8px" }}>
-                  <WorkOutlineIcon />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Technical Mentor, WeThinkCode_"
-                  secondary="August 2020 - February 2021: I was assisting the students in understanding the material by going through hackerrank questions, doing some sample code concepts, and also sharing my experience of my Dev journey and how I survived the program."
-                />
-              </ListItem>
-
-              <ListItem alignItems="flex-start">
-                <ListItemIcon sx={{ marginTop: "8px" }}>
-                  <WorkOutlineIcon />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Software Engineer Intern, Vodacom"
-                  secondary="February 2020 - June 2020: I worked in an amazing team, building a tool using React.js, Express.js, MongoDB, and Node.js from the UI frontend to the microservice backend integrated alongside Angular.js."
-                />
-              </ListItem>
-
-              <ListItem alignItems="flex-start">
-                <ListItemIcon sx={{ marginTop: "8px" }}>
-                  <WorkOutlineIcon />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Volunteer, WeThinkCode_"
-                  secondary="October 2019 - February 2020: Assisted with setting up computers for candidates, invigilating, and helping with technical issues."
-                />
-              </ListItem>
-            </List>
-          </Box>
-
-          <Box sx={{ mb: 4 }}>
-            <Typography variant="h6">Education</Typography>
-            <List>
-              <ListItem alignItems="flex-start">
-                <ListItemIcon sx={{ marginTop: "8px" }}>
-                  <SchoolIcon />
-                </ListItemIcon>
-                <ListItemText
-                  primary="WeThinkCode_"
-                  secondary="Computer Software Engineering · (2019 - 2021)"
-                />
-              </ListItem>
-
-              <ListItem alignItems="flex-start">
-                <ListItemIcon sx={{ marginTop: "8px" }}>
-                  <SchoolIcon />
-                </ListItemIcon>
-                <ListItemText
-                  primary="University of South Africa/Universiteit van Suid-Afrika"
-                  secondary="Bachelor's degree, Computing · (2019 - 2025, in progress)"
-                />
-              </ListItem>
-
-              <ListItem alignItems="flex-start">
-                <ListItemIcon sx={{ marginTop: "8px" }}>
-                  <SchoolIcon />
-                </ListItemIcon>
-                <ListItemText
-                  primary="ATTI Advanced Technology Training Institute"
-                  secondary="Certificate, System Administrator · (2017 - 2018)"
-                />
-              </ListItem>
-
-              <ListItem alignItems="flex-start">
-                <ListItemIcon sx={{ marginTop: "8px" }}>
-                  <SchoolIcon />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Lenyora La Thuto Secondary High School"
-                  secondary="Matric · (2007 - 2010)"
-                />
-              </ListItem>
-            </List>
-          </Box>
+            {/* Education */}
+            <MotionBox variants={fadeUp}>
+              <Stack
+                direction="row"
+                alignItems="center"
+                spacing={1.5}
+                sx={{ mb: 3 }}
+              >
+                <SchoolIcon sx={{ color: "primary.main" }} />
+                <Typography variant="h5" sx={{ fontWeight: 600 }}>
+                  Education
+                </Typography>
+              </Stack>
+              <Stack spacing={2}>
+                {education.map((ed) => (
+                  <MotionPaper
+                    key={ed.school}
+                    elevation={0}
+                    variants={fadeUp}
+                    whileHover={{ x: 4 }}
+                    sx={{ ...cardStyle, p: 2.5 }}
+                  >
+                    <Stack
+                      direction={{ xs: "column", sm: "row" }}
+                      justifyContent="space-between"
+                      alignItems={{ xs: "flex-start", sm: "center" }}
+                      spacing={1}
+                    >
+                      <Box>
+                        <Typography
+                          variant="subtitle1"
+                          sx={{ fontWeight: 600 }}
+                        >
+                          {ed.school}
+                        </Typography>
+                        <Typography
+                          variant="body2"
+                          sx={{ color: "text.secondary" }}
+                        >
+                          {ed.detail}
+                        </Typography>
+                      </Box>
+                      <Typography
+                        variant="body2"
+                        sx={{ color: "text.secondary", whiteSpace: "nowrap" }}
+                      >
+                        {ed.period}
+                      </Typography>
+                    </Stack>
+                  </MotionPaper>
+                ))}
+              </Stack>
+            </MotionBox>
+          </Stack>
         </Grid>
       </Grid>
     </Box>

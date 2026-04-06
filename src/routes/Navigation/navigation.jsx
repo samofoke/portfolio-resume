@@ -16,7 +16,6 @@ import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import { useTheme } from "@mui/material/styles";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
-import { Link as ScrollLink } from "react-scroll";
 import CustomButton from "../../components/button/HoverButton";
 import { useThemeSwitcher } from "../../components/Themes/ThemeSwitcher";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -38,12 +37,21 @@ const NavBar = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   const menuItem = [
-    { label: "About", path: "/about" },
-    { label: "Resume", path: "/resume" },
+    { label: "About", path: "/about", sectionId: "about" },
+    { label: "Resume", path: "/resume", sectionId: "resume" },
     { label: "Portfolio", path: "/portfolio" },
     { label: "Blog", path: "/blog" },
-    { label: "Contact", path: "/contact" },
+    { label: "Contact", path: "/contact", sectionId: "contact" },
   ];
+
+  const handleSectionScroll = (sectionId) => (event) => {
+    if (location.pathname !== "/" || !sectionId) return;
+    event.preventDefault();
+    const target = document.getElementById(sectionId);
+    if (!target) return;
+    const top = target.getBoundingClientRect().top + window.pageYOffset - 70;
+    window.scrollTo({ top, behavior: "smooth" });
+  };
 
   const itemVariants = {
     hidden: { opacity: 0, y: -20 },
@@ -78,41 +86,58 @@ const NavBar = () => {
     visible: { x: 0, opacity: 1, transition: { duration: 0.7 } },
   };
 
-  const renderLinks = (item, index) => {
-    if (location.pathname === "/") {
+  const renderLinks = (item) => {
+    const onHomeWithSection =
+      location.pathname === "/" && Boolean(item.sectionId);
+
+    if (onHomeWithSection) {
       return (
-        <ScrollLink
+        <CustomButton
           key={item.label}
-          activeClass="active"
-          to={item.label.toLowerCase()}
-          smooth={true}
-          duration={500}
-          offset={-70}
+          onClick={handleSectionScroll(item.sectionId)}
+          sx={{ color: theme.palette.text.primary, ml: 2 }}
         >
-          <CustomButton sx={{ color: theme.palette.text.primary, ml: 2 }}>
-            {item.label}
-          </CustomButton>
-        </ScrollLink>
-      );
-    } else {
-      return (
-        <Link to={item.path} key={item.path}>
-          <CustomButton sx={{ color: theme.palette.text.primary, ml: 2 }}>
-            {item.label}
-          </CustomButton>
-        </Link>
+          {item.label}
+        </CustomButton>
       );
     }
+
+    return (
+      <Link
+        to={item.path}
+        key={item.path}
+        style={{ textDecoration: "none" }}
+      >
+        <CustomButton sx={{ color: theme.palette.text.primary, ml: 2 }}>
+          {item.label}
+        </CustomButton>
+      </Link>
+    );
   };
 
   const drawer = (
     <Box onClick={handleDrawerToogle} sx={{ textAlign: "center" }}>
       <List>
-        {menuItem.map((item) => (
-          <ListItem button key={item.label} component={Link} to={item.path}>
-            <ListItemText primary={item.label} />
-          </ListItem>
-        ))}
+        {menuItem.map((item) => {
+          const onHomeWithSection =
+            location.pathname === "/" && Boolean(item.sectionId);
+          if (onHomeWithSection) {
+            return (
+              <ListItem
+                button
+                key={item.label}
+                onClick={handleSectionScroll(item.sectionId)}
+              >
+                <ListItemText primary={item.label} />
+              </ListItem>
+            );
+          }
+          return (
+            <ListItem button key={item.label} component={Link} to={item.path}>
+              <ListItemText primary={item.label} />
+            </ListItem>
+          );
+        })}
         {currentUser ? (
           <ListItem button onClick={handleProfile}>
             <ListItemText primary="Profile" />

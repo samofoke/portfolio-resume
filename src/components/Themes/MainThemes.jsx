@@ -1,50 +1,230 @@
-import { createTheme } from "@mui/material/styles";
+import { createTheme, alpha } from "@mui/material/styles";
 
-const lightTheme = createTheme({
-  palette: {
-    mode: "light",
-    primary: {
-      main: "#FB6D48",
-      light: "#FAEED1",
-      dark: "#DED0B6",
+// Shared design tokens
+const fontHeading = `'Space Grotesk', 'Archivo', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif`;
+const fontBody = `'Archivo', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif`;
+
+const sharedTypography = {
+  fontFamily: fontBody,
+  h1: {
+    fontFamily: fontHeading,
+    fontWeight: 700,
+    letterSpacing: "-0.02em",
+    lineHeight: 1.1,
+  },
+  h2: {
+    fontFamily: fontHeading,
+    fontWeight: 700,
+    letterSpacing: "-0.02em",
+    lineHeight: 1.15,
+  },
+  h3: {
+    fontFamily: fontHeading,
+    fontWeight: 600,
+    letterSpacing: "-0.015em",
+    lineHeight: 1.2,
+  },
+  h4: {
+    fontFamily: fontHeading,
+    fontWeight: 600,
+    letterSpacing: "-0.01em",
+    lineHeight: 1.25,
+  },
+  h5: {
+    fontFamily: fontHeading,
+    fontWeight: 500,
+    letterSpacing: "-0.005em",
+    lineHeight: 1.3,
+  },
+  h6: {
+    fontFamily: fontHeading,
+    fontWeight: 600,
+    letterSpacing: 0,
+    lineHeight: 1.4,
+  },
+  body1: {
+    fontFamily: fontBody,
+    fontSize: "1rem",
+    lineHeight: 1.65,
+  },
+  body2: {
+    fontFamily: fontBody,
+    fontSize: "0.9rem",
+    lineHeight: 1.6,
+  },
+  button: {
+    fontFamily: fontHeading,
+    fontWeight: 600,
+    textTransform: "none",
+    letterSpacing: "0.01em",
+  },
+};
+
+const sharedShape = { borderRadius: 12 };
+
+const buildComponents = (palette) => ({
+  MuiCssBaseline: {
+    styleOverrides: {
+      body: {
+        scrollBehavior: "smooth",
+        WebkitFontSmoothing: "antialiased",
+        MozOsxFontSmoothing: "grayscale",
+      },
+      "@media (prefers-reduced-motion: reduce)": {
+        "*, *::before, *::after": {
+          animationDuration: "0.001ms !important",
+          transitionDuration: "0.001ms !important",
+        },
+      },
     },
-    secondary: {
-      main: "#BBAB8C",
+  },
+  MuiButton: {
+    defaultProps: { disableElevation: true },
+    styleOverrides: {
+      root: {
+        borderRadius: 10,
+        paddingInline: 22,
+        paddingBlock: 10,
+        cursor: "pointer",
+        transition: "background-color 200ms ease, color 200ms ease, box-shadow 200ms ease, border-color 200ms ease",
+        "&:focus-visible": {
+          outline: `2px solid ${palette.primary.main}`,
+          outlineOffset: 2,
+        },
+      },
+      containedPrimary: {
+        color: palette.mode === "light" ? "#FFFFFF" : "#0B0B0F",
+        "&:hover": {
+          boxShadow: `0 8px 24px ${alpha(palette.primary.main, 0.35)}`,
+        },
+      },
+      outlined: {
+        borderWidth: 1.5,
+        "&:hover": { borderWidth: 1.5 },
+      },
     },
-    background: {
-      default: "rgb(253, 247, 228)",
-      paper: "rgb(250, 238, 209)",
+  },
+  MuiIconButton: {
+    styleOverrides: {
+      root: {
+        cursor: "pointer",
+        transition: "background-color 200ms ease, color 200ms ease",
+        "&:focus-visible": {
+          outline: `2px solid ${palette.primary.main}`,
+          outlineOffset: 2,
+        },
+      },
     },
-    link: {
-      main: "rgb(137, 185, 173)",
+  },
+  MuiPaper: {
+    styleOverrides: {
+      root: {
+        backgroundImage: "none",
+      },
     },
-    text: {
-      primary: "#000000",
-      secondary: "rgba(0, 0, 0, 0.54)",
+  },
+  MuiAppBar: {
+    styleOverrides: {
+      root: {
+        backdropFilter: "saturate(180%) blur(10px)",
+      },
+    },
+  },
+  MuiLink: {
+    styleOverrides: {
+      root: {
+        cursor: "pointer",
+        transition: "color 200ms ease",
+        "&:focus-visible": {
+          outline: `2px solid ${palette.primary.main}`,
+          outlineOffset: 2,
+          borderRadius: 2,
+        },
+      },
+    },
+  },
+  MuiTextField: {
+    defaultProps: { variant: "outlined" },
+  },
+  MuiOutlinedInput: {
+    styleOverrides: {
+      root: {
+        borderRadius: 10,
+      },
     },
   },
 });
 
-const darkTheme = createTheme({
-  palette: {
-    mode: "dark",
-    primary: {
-      main: "#FF8C00",
-      light: "#FFB266",
-      dark: "#BF8040",
-    },
-    secondary: {
-      main: "#A5694F",
-    },
-    background: {
-      default: "#2d2d2d",
-      paper: "#1E1E1E",
-    },
-    text: {
-      primary: "#FF8C00",
-      secondary: "#B3B3B3",
-    },
+// Light theme — warm-neutral base with a vibrant accent
+const lightPalette = {
+  mode: "light",
+  primary: {
+    main: "#E8751A", // keep brand accent, but used deliberately
+    light: "#FFA15A",
+    dark: "#B85400",
+    contrastText: "#FFFFFF",
   },
+  secondary: {
+    main: "#1F2937", // deep slate for contrast
+    light: "#374151",
+    dark: "#111827",
+    contrastText: "#FFFFFF",
+  },
+  background: {
+    default: "#FDF7E4",
+    paper: "#FFFFFF",
+  },
+  link: {
+    main: "#0F766E",
+  },
+  text: {
+    primary: "#0F172A", // slate-900 — 4.5:1+ on both backgrounds
+    secondary: "#475569", // slate-600 — meets contrast minimum
+  },
+  divider: "rgba(15, 23, 42, 0.12)",
+};
+
+const lightTheme = createTheme({
+  palette: lightPalette,
+  shape: sharedShape,
+  typography: sharedTypography,
+  components: buildComponents(lightPalette),
+});
+
+// Dark theme — modern deep-black with vibrant coral accent
+const darkPalette = {
+  mode: "dark",
+  primary: {
+    main: "#FF7A45", // coral — punchy on near-black
+    light: "#FFA375",
+    dark: "#C2541E",
+    contrastText: "#09090C",
+  },
+  secondary: {
+    main: "#5EEAD4", // teal counter-accent
+    light: "#99F6E4",
+    dark: "#14B8A6",
+    contrastText: "#09090C",
+  },
+  background: {
+    default: "#09090C", // near-black
+    paper: "#111116",
+  },
+  link: {
+    main: "#5EEAD4",
+  },
+  text: {
+    primary: "#FAFAFA",
+    secondary: "#A1A1AA",
+  },
+  divider: "rgba(250, 250, 250, 0.08)",
+};
+
+const darkTheme = createTheme({
+  palette: darkPalette,
+  shape: sharedShape,
+  typography: sharedTypography,
+  components: buildComponents(darkPalette),
 });
 
 export { lightTheme, darkTheme };
