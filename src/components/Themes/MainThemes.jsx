@@ -95,7 +95,10 @@ const buildComponents = (palette) => ({
       containedPrimary: {
         color: palette.mode === "light" ? "#FFFFFF" : "#0B0B0F",
         "&:hover": {
-          boxShadow: `0 8px 24px ${alpha(palette.primary.main, 0.35)}`,
+          boxShadow: `0 8px 24px ${alpha(
+            palette.primary.main,
+            palette.mode === "dark" ? 0.22 : 0.35
+          )}`,
         },
       },
       outlined: {
@@ -191,33 +194,33 @@ const lightTheme = createTheme({
   components: buildComponents(lightPalette),
 });
 
-// Dark theme — modern deep-black with vibrant coral accent
+// Dark theme — darker graphite base with restrained warm/cool accents
 const darkPalette = {
   mode: "dark",
   primary: {
-    main: "#FF7A45", // coral — punchy on near-black
-    light: "#FFA375",
-    dark: "#C2541E",
-    contrastText: "#09090C",
+    main: "#E06A3B",
+    light: "#F09169",
+    dark: "#B54E24",
+    contrastText: "#05070A",
   },
   secondary: {
-    main: "#5EEAD4", // teal counter-accent
-    light: "#99F6E4",
-    dark: "#14B8A6",
-    contrastText: "#09090C",
+    main: "#53B8AE",
+    light: "#80D1C8",
+    dark: "#2B867D",
+    contrastText: "#05070A",
   },
   background: {
-    default: "#09090C", // near-black
-    paper: "#111116",
+    default: "#05070A",
+    paper: "#0D1117",
   },
   link: {
-    main: "#5EEAD4",
+    main: "#68C7BD",
   },
   text: {
-    primary: "#FAFAFA",
-    secondary: "#A1A1AA",
+    primary: "#F4F7FB",
+    secondary: "#98A3B4",
   },
-  divider: "rgba(250, 250, 250, 0.08)",
+  divider: "rgba(148, 163, 184, 0.14)",
 };
 
 const darkTheme = createTheme({

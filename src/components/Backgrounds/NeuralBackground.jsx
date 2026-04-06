@@ -63,7 +63,9 @@ const NeuralBackground = () => {
 
   const primary = theme.palette.primary.main;
   const secondary = theme.palette.secondary.main;
-  const lineColor = alpha(theme.palette.text.primary, isDark ? 0.12 : 0.14);
+  const lineColor = alpha(theme.palette.text.primary, isDark ? 0.08 : 0.14);
+  const pulseGlow = isDark ? 4 : 6;
+  const nodeGlow = isDark ? 2 : 3;
 
   return (
     <Box
@@ -131,7 +133,10 @@ const NeuralBackground = () => {
                     times: [0, 0.1, 0.9, 1],
                   }}
                   style={{
-                    filter: `drop-shadow(0 0 6px ${color})`,
+                    filter: `drop-shadow(0 0 ${pulseGlow}px ${alpha(
+                      color,
+                      isDark ? 0.45 : 0.7
+                    )})`,
                   }}
                 >
                   <circle r={2.5} fill={color} />
@@ -150,9 +155,9 @@ const NeuralBackground = () => {
                   key={`node-${i}`}
                   cx={node.x}
                   cy={node.y}
-                  r={3}
+                  r={2.6}
                   fill={primary}
-                  opacity={0.7}
+                  opacity={isDark ? 0.55 : 0.7}
                 />
               );
             }
@@ -162,10 +167,10 @@ const NeuralBackground = () => {
                 cx={node.x}
                 cy={node.y}
                 fill={primary}
-                initial={{ r: 2.5, opacity: 0.5 }}
+                initial={{ r: isDark ? 2.25 : 2.5, opacity: isDark ? 0.28 : 0.5 }}
                 animate={{
-                  r: [2.5, 4.5, 2.5],
-                  opacity: [0.4, 1, 0.4],
+                  r: isDark ? [2.25, 3.5, 2.25] : [2.5, 4.5, 2.5],
+                  opacity: isDark ? [0.28, 0.7, 0.28] : [0.4, 1, 0.4],
                 }}
                 transition={{
                   duration: 2.5 + (i % 4) * 0.5,
@@ -174,7 +179,10 @@ const NeuralBackground = () => {
                   ease: "easeInOut",
                 }}
                 style={{
-                  filter: `drop-shadow(0 0 3px ${alpha(primary, 0.6)})`,
+                  filter: `drop-shadow(0 0 ${nodeGlow}px ${alpha(
+                    primary,
+                    isDark ? 0.35 : 0.6
+                  )})`,
                 }}
               />
             );
