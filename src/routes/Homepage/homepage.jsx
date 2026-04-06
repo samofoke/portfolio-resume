@@ -80,6 +80,19 @@ const HomePage = () => {
   }, []);
 
   const isDark = theme.palette.mode === "dark";
+  const heroPrimaryGlow = alpha(
+    theme.palette.primary.main,
+    isDark ? 0.12 : 0.25,
+  );
+  const heroSecondaryGlow = alpha(
+    theme.palette.secondary.main,
+    isDark ? 0.1 : 0.18,
+  );
+  const heroRingPrimary = alpha(theme.palette.primary.main, isDark ? 0.75 : 1);
+  const heroRingSecondary = alpha(
+    theme.palette.secondary.main,
+    isDark ? 0.65 : 1,
+  );
 
   useEffect(() => {
     const professionText = HomePageInfo.myProfession.trim();
@@ -188,7 +201,7 @@ const HomePage = () => {
               display: "flex",
               alignItems: "center",
               pt: { xs: 8, md: 6 },
-              pb: { xs: 8, md: 6 },
+              pb: { xs: 8, md: 10 },
             }}
           >
             {/* Neural network underlay */}
@@ -214,11 +227,8 @@ const HomePage = () => {
                 width: { xs: 280, md: 440 },
                 height: { xs: 280, md: 440 },
                 borderRadius: "50%",
-                background: `radial-gradient(circle, ${alpha(
-                  theme.palette.primary.main,
-                  0.25
-                )} 0%, transparent 70%)`,
-                filter: "blur(60px)",
+                background: `radial-gradient(circle, ${heroPrimaryGlow} 0%, transparent 72%)`,
+                filter: `blur(${isDark ? 84 : 60}px)`,
                 pointerEvents: "none",
                 zIndex: 0,
               }}
@@ -242,11 +252,8 @@ const HomePage = () => {
                 width: { xs: 260, md: 380 },
                 height: { xs: 260, md: 380 },
                 borderRadius: "50%",
-                background: `radial-gradient(circle, ${alpha(
-                  theme.palette.secondary.main,
-                  0.18
-                )} 0%, transparent 70%)`,
-                filter: "blur(60px)",
+                background: `radial-gradient(circle, ${heroSecondaryGlow} 0%, transparent 72%)`,
+                filter: `blur(${isDark ? 88 : 60}px)`,
                 pointerEvents: "none",
                 zIndex: 0,
               }}
@@ -276,23 +283,6 @@ const HomePage = () => {
                     animate="visible"
                     sx={{ textAlign: { xs: "center", md: "left" } }}
                   >
-                    <motion.div variants={itemVariants}>
-                      <Chip
-                        label="● Available for opportunities"
-                        size="small"
-                        sx={{
-                          bgcolor: alpha(theme.palette.primary.main, 0.12),
-                          color: "primary.main",
-                          fontWeight: 600,
-                          border: `1px solid ${alpha(
-                            theme.palette.primary.main,
-                            0.3
-                          )}`,
-                          "& .MuiChip-label": { px: 1.5 },
-                        }}
-                      />
-                    </motion.div>
-
                     <MotionTypography
                       variants={itemVariants}
                       variant="h1"
@@ -394,7 +384,7 @@ const HomePage = () => {
                             sx={{
                               bgcolor: alpha(
                                 theme.palette.text.primary,
-                                isDark ? 0.06 : 0.05
+                                isDark ? 0.06 : 0.05,
                               ),
                               color: "text.secondary",
                               border: `1px solid ${theme.palette.divider}`,
@@ -403,12 +393,12 @@ const HomePage = () => {
                               "&:hover": {
                                 borderColor: alpha(
                                   theme.palette.primary.main,
-                                  0.5
+                                  0.5,
                                 ),
                                 color: "primary.main",
                                 bgcolor: alpha(
                                   theme.palette.primary.main,
-                                  0.08
+                                  0.08,
                                 ),
                               },
                             }}
@@ -447,7 +437,11 @@ const HomePage = () => {
                   xs={12}
                   md={5}
                   lg={5}
-                  sx={{ display: "flex", justifyContent: "center" }}
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: { xs: "center", md: "flex-end" },
+                  }}
                 >
                   <MotionBox
                     initial={{ opacity: 0, scale: 0.85, rotate: -5 }}
@@ -460,8 +454,10 @@ const HomePage = () => {
                     whileHover={{ scale: 1.02 }}
                     sx={{
                       position: "relative",
-                      width: { xs: 260, sm: 320, md: 360, lg: 400 },
+                      width: { xs: 276, sm: 336, md: 384, lg: 424 },
                       aspectRatio: "1 / 1",
+                      mx: { xs: "auto", md: 0 },
+                      mr: { md: -1, lg: -2 },
                     }}
                   >
                     {/* Rotating conic gradient ring */}
@@ -476,23 +472,24 @@ const HomePage = () => {
                         position: "absolute",
                         inset: 0,
                         borderRadius: "50%",
-                        background: `conic-gradient(from 0deg, ${theme.palette.primary.main}, ${alpha(
+                        background: `conic-gradient(from 0deg, ${heroRingPrimary}, ${alpha(
                           theme.palette.primary.main,
-                          0
-                        )}, ${theme.palette.secondary.main}, ${alpha(
+                          0,
+                        )}, ${heroRingSecondary}, ${alpha(
                           theme.palette.secondary.main,
-                          0
-                        )}, ${theme.palette.primary.main})`,
-                        filter: "blur(2px)",
+                          0,
+                        )}, ${heroRingPrimary})`,
+                        filter: `blur(${isDark ? 1 : 2}px)`,
+                        opacity: isDark ? 0.82 : 1,
                       }}
                     />
                     {/* Pulsing glow */}
                     <MotionBox
                       animate={{
                         boxShadow: [
-                          `0 0 40px ${alpha(theme.palette.primary.main, 0.3)}`,
-                          `0 0 80px ${alpha(theme.palette.primary.main, 0.5)}`,
-                          `0 0 40px ${alpha(theme.palette.primary.main, 0.3)}`,
+                          `0 0 0 1px ${alpha(theme.palette.text.primary, isDark ? 0.08 : 0.05)}, 0 0 24px ${alpha(theme.palette.primary.main, isDark ? 0.14 : 0.24)}`,
+                          `0 0 0 1px ${alpha(theme.palette.text.primary, isDark ? 0.12 : 0.08)}, 0 0 46px ${alpha(theme.palette.primary.main, isDark ? 0.22 : 0.38)}`,
+                          `0 0 0 1px ${alpha(theme.palette.text.primary, isDark ? 0.08 : 0.05)}, 0 0 24px ${alpha(theme.palette.primary.main, isDark ? 0.14 : 0.24)}`,
                         ],
                       }}
                       transition={{
@@ -502,10 +499,14 @@ const HomePage = () => {
                       }}
                       sx={{
                         position: "absolute",
-                        inset: "6px",
+                        inset: "5px",
                         borderRadius: "50%",
-                        backgroundColor: "background.default",
-                        padding: "12px",
+                        backgroundColor: "background.paper",
+                        padding: "10px",
+                        border: `1px solid ${alpha(
+                          theme.palette.text.primary,
+                          isDark ? 0.12 : 0.08,
+                        )}`,
                       }}
                     >
                       <Box
@@ -513,7 +514,7 @@ const HomePage = () => {
                         src={GenAI}
                         alt="Portrait of Sabata Mofokeng, Software Engineer"
                         loading="eager"
-                        fetchPriority="high"
+                        fetchpriority="high"
                         sx={{
                           width: "100%",
                           height: "100%",
@@ -526,47 +527,55 @@ const HomePage = () => {
                   </MotionBox>
                 </Grid>
               </Grid>
+            </Box>
 
-              {/* Scroll indicator */}
-              <MotionBox
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.5, duration: 0.8 }}
+            {/* Scroll indicator */}
+            <MotionBox
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.5, duration: 0.8 }}
+              sx={{
+                position: "absolute",
+                bottom: { xs: 16, md: 24 },
+                left: "50%",
+                transform: "translateX(-50%)",
+                display: { xs: "none", md: "flex" },
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 0.5,
+                zIndex: 1,
+                pointerEvents: "none",
+              }}
+            >
+              <Typography
+                variant="caption"
                 sx={{
-                  position: "absolute",
-                  bottom: { xs: 16, md: 24 },
-                  left: "50%",
-                  transform: "translateX(-50%)",
-                  display: { xs: "none", md: "flex" },
-                  flexDirection: "column",
-                  alignItems: "center",
-                  gap: 0.5,
+                  color: "text.secondary",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.15em",
+                  fontSize: "0.7rem",
                 }}
               >
-                <Typography
-                  variant="caption"
-                  sx={{
-                    color: "text.secondary",
-                    textTransform: "uppercase",
-                    letterSpacing: "0.15em",
-                    fontSize: "0.7rem",
-                  }}
-                >
-                  Scroll
-                </Typography>
-                <MotionBox
-                  animate={{ y: [0, 6, 0] }}
-                  transition={{
-                    duration: 1.6,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                  sx={{ color: "primary.main", display: "flex" }}
-                >
-                  <KeyboardArrowDownIcon />
-                </MotionBox>
+                Scroll
+              </Typography>
+              <MotionBox
+                animate={{ y: [0, 6, 0] }}
+                transition={{
+                  duration: 1.6,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                sx={{
+                  color: "primary.main",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <KeyboardArrowDownIcon />
               </MotionBox>
-            </Box>
+            </MotionBox>
           </Box>
 
           <Box component="section" id="about" sx={{ py: { xs: 4, md: 8 } }}>
@@ -625,13 +634,14 @@ const HomePage = () => {
                   color: isDark ? "#09090C" : "#FFFFFF",
                   boxShadow: `0 10px 30px -10px ${alpha(
                     theme.palette.primary.main,
-                    0.7
+                    isDark ? 0.36 : 0.7,
                   )}`,
                   "&:hover": {
                     backgroundColor: "primary.light",
                     transform: "translateY(-2px)",
                   },
-                  transition: "transform 200ms ease, background-color 200ms ease",
+                  transition:
+                    "transform 200ms ease, background-color 200ms ease",
                 }}
               >
                 <ArrowUpwardIcon />
