@@ -115,15 +115,12 @@ const NeuralBackground = () => {
               const to = NODES[edge.to];
               const color = i % 2 === 0 ? primary : secondary;
               return (
-                <motion.circle
+                <motion.g
                   key={`pulse-${i}`}
-                  r={2.5}
-                  fill={color}
-                  cx={from.x}
-                  cy={from.y}
+                  initial={{ x: from.x, y: from.y, opacity: 0 }}
                   animate={{
-                    cx: [from.x, to.x],
-                    cy: [from.y, to.y],
+                    x: [from.x, to.x],
+                    y: [from.y, to.y],
                     opacity: [0, 1, 1, 0],
                   }}
                   transition={{
@@ -136,7 +133,9 @@ const NeuralBackground = () => {
                   style={{
                     filter: `drop-shadow(0 0 6px ${color})`,
                   }}
-                />
+                >
+                  <circle r={2.5} fill={color} />
+                </motion.g>
               );
             })}
           </g>
